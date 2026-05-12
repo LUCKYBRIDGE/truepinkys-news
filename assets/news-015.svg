@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Generated educational news image 15</title>
+  <desc id="desc">Abstract local illustration for a student-friendly policy news article.</desc>
+  <rect width="1200" height="720" fill="#f0f9ff"/>
+  <circle cx="1020" cy="120" r="150" fill="#a3e635" opacity="0.18"/>
+  <circle cx="180" cy="620" r="190" fill="#0284c7" opacity="0.12"/>
+  <rect x="150" y="150" width="900" height="420" rx="44" fill="#ffffff" opacity="0.92"/>
+  <rect x="210" y="210" width="360" height="42" rx="21" fill="#0284c7" opacity="0.85"/>
+  <rect x="210" y="284" width="720" height="28" rx="14" fill="#94a3b8" opacity="0.45"/>
+  <rect x="210" y="340" width="610" height="28" rx="14" fill="#94a3b8" opacity="0.35"/>
+  <g transform="translate(710 250)">
+    <circle cx="110" cy="80" r="68" fill="#a3e635" opacity="0.85"/>
+    <rect x="20" y="158" width="180" height="118" rx="26" fill="#0284c7" opacity="0.85"/>
+    <path d="M53 206h114M53 238h84" stroke="#fff" stroke-width="18" stroke-linecap="round" opacity="0.86"/>
+  </g>
+  <path d="M230 500c110-74 204-74 314 0s204 74 314 0" fill="none" stroke="#a3e635" stroke-width="24" stroke-linecap="round" opacity="0.65"/>
+</svg>
