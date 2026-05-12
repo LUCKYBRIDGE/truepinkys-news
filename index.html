@@ -1,0 +1,711 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>트루핑키스 뉴스 - 진실을 밝히는 포털</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Premium Fonts: Pretendard for UI, Noto Serif KR for Article Body -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --brand-primary: #be185d; /* Pink-700 */
+            --brand-accent: #e11d48; /* Rose-600 */
+        }
+        body { 
+            font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+            color: #1e293b; 
+            letter-spacing: -0.02em;
+            background-color: #f8fafc;
+        }
+        .article-body { 
+            font-family: 'Noto Serif KR', serif; 
+            font-size: 1.1rem; 
+            line-height: 1.85; 
+            color: #334155; 
+            word-break: keep-all; 
+        }
+        
+        /* Premium Micro-animations */
+        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .glass-header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Custom Checkbox */
+        .fact-checkbox {
+            appearance: none;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .fact-checkbox:checked {
+            background-color: var(--brand-accent);
+            border-color: var(--brand-accent);
+        }
+        .fact-checkbox:checked::after {
+            content: '✔';
+            position: absolute;
+            color: white;
+            font-size: 1rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 antialiased">
+
+    <!-- Top Utility Bar -->
+    <div class="bg-slate-900 text-slate-300 text-[11px] py-1.5 font-medium tracking-wide">
+        <div class="max-w-[1150px] mx-auto px-4 flex justify-between items-center">
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-white transition">트루핑키스 홈</a>
+                <a href="#" class="text-rose-400 hover:text-rose-300 transition font-bold"><i class="fa-solid fa-graduation-cap mr-1"></i> 교육센터</a>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="#" class="hover:text-white transition" onclick="alert('로그인 서비스 준비중입니다.')">로그인</a>
+                <span class="w-px h-2.5 bg-slate-600"></span>
+                <a href="#" class="hover:text-white transition" onclick="alert('현재 회원가입을 지원하지 않습니다.')">회원가입</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Logo & Search (Sticky Glassmorphism) -->
+    <header class="glass-header sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+        <div class="max-w-[1150px] mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-5">
+                <a href="#" onclick="filterCategory('전체'); return false;" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-700 rounded-lg flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:rotate-12 transition-transform">
+                        TP
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <span class="text-[11px] font-black text-rose-600 uppercase tracking-widest leading-none mb-0.5">Truepinky's</span>
+                        <h1 class="text-[28px] font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 leading-none">
+                            트루핑키스 뉴스
+                        </h1>
+                    </div>
+                </a>
+                <div class="text-[13px] text-slate-500 font-medium hidden lg:block border-l-2 border-slate-300 pl-4">
+                    생각을 깨우는<br>미디어 리터러시
+                </div>
+            </div>
+            <div class="relative w-full md:w-80 group">
+                <input type="text" id="search-input" onkeyup="handleSearch(event)" 
+                    class="w-full bg-slate-100 border border-transparent rounded-full py-2.5 px-5 pr-12 text-sm focus:outline-none focus:bg-white focus:border-rose-500 focus:ring-4 focus:ring-rose-500/20 transition-all shadow-inner" 
+                    placeholder="기사 제목, 내용 검색">
+                <button onclick="executeSearch()" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-rose-600 focus:text-rose-600 transition">
+                    <i class="fa-solid fa-magnifying-glass font-bold text-lg"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Navigation -->
+        <nav class="max-w-[1150px] mx-auto px-4 flex items-center h-12 overflow-x-auto whitespace-nowrap">
+            <ul class="flex space-x-8 text-[15px] font-bold text-slate-600" id="main-nav">
+                <li class="h-12 flex items-center nav-item border-b-[3px] border-slate-900 text-slate-900" data-cat="전체"><a href="#" onclick="filterCategory('전체'); return false;" class="px-1">뉴스 홈</a></li>
+                <li class="h-12 flex items-center nav-item hover:text-slate-900 transition" data-cat="사회"><a href="#" onclick="filterCategory('사회'); return false;" class="px-1">정치/사회</a></li>
+                <li class="h-12 flex items-center nav-item hover:text-slate-900 transition" data-cat="IT"><a href="#" onclick="filterCategory('IT'); return false;" class="px-1">경제/IT</a></li>
+                <li class="h-12 flex items-center nav-item hover:text-slate-900 transition" data-cat="문화"><a href="#" onclick="filterCategory('문화'); return false;" class="px-1">생활/문화</a></li>
+                <li class="h-12 flex items-center nav-item hover:text-slate-900 transition" data-cat="오피니언"><a href="#" onclick="filterCategory('오피니언'); return false;" class="px-1">오피니언</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main id="app-main" class="max-w-[1150px] mx-auto px-4 py-8 fade-in"></main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-12 border-t border-slate-800">
+        <div class="max-w-[1150px] mx-auto px-4">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center text-slate-300 font-black text-sm">TP</div>
+                <span class="text-lg font-bold text-slate-200">트루핑키스 뉴스</span>
+            </div>
+            <div class="flex gap-4 md:gap-6 text-xs md:text-sm mb-6 text-slate-300 flex-wrap font-medium">
+                <a href="#" class="hover:text-white transition" onclick="showPrivacyPolicy()">회사소개</a> | 
+                <a href="#" class="hover:text-white transition">기사배열 원칙</a> | 
+                <a href="#" class="text-white font-bold hover:text-rose-400 transition" onclick="showPrivacyPolicy()">개인정보처리방침</a> | 
+                <a href="#" class="hover:text-white transition" onclick="alert('문의: truepinkys@edu.kr')">고객센터</a>
+            </div>
+            <p class="text-xs leading-relaxed mb-4 text-slate-500">
+                이 웹사이트는 미디어 리터러시 교육을 목적으로 제작된 하이브리드 뉴스 플랫폼입니다.<br>
+                사이트 내에는 <strong>공공누리 제1유형(출처표시)</strong> 조건에 따라 제공된 실제 국가 정책 뉴스(출처: 정책브리핑)와 교육을 위해 허구로 창작된 가짜 뉴스가 혼재되어 있습니다.
+            </p>
+            <p class="text-[11px] font-bold text-slate-600">© 2026 Truepinky's Media (Educational Purpose Only).</p>
+        </div>
+    </footer>
+
+    <script>
+        let newsData = [];
+        let currentFontSize = 17.6; // 1.1rem eq
+
+        async function initApp() {
+            try {
+                const cacheKey = Date.now();
+                const listResponse = await fetch(`./articleList.json?v=${cacheKey}`, { cache: 'no-store' });
+                const articleIds = await listResponse.json();
+                
+                const fetchPromises = articleIds.map(id => fetch(`./${id}.json?v=${cacheKey}`, { cache: 'no-store' }).then(res => res.json()));
+                newsData = await Promise.all(fetchPromises);
+                
+                window.addEventListener('hashchange', renderPage);
+                renderPage(); 
+            } catch (err) {
+                console.error("데이터 로드 오류:", err);
+                document.getElementById('app-main').innerHTML = `
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg shadow-sm">
+                        <h3 class="text-red-800 font-bold text-lg mb-2"><i class="fa-solid fa-triangle-exclamation mr-2"></i>데이터 로드 실패</h3>
+                        <p class="text-red-600 text-sm">로컬 서버(Live Server) 환경에서 실행 중인지 확인해주세요.</p>
+                    </div>`;
+            }
+        }
+
+        // ==========================================
+        // NAVIGATION & SEARCH LOGIC
+        // ==========================================
+        function handleSearch(e) {
+            if (e.key === 'Enter') executeSearch();
+        }
+
+        function executeSearch() {
+            const keyword = document.getElementById('search-input').value.trim().toLowerCase();
+            window.location.hash = ''; 
+            
+            updateNavUI('전체');
+
+            if (!keyword) {
+                renderHomeView(newsData);
+                return;
+            }
+
+            const filtered = newsData.filter(n => 
+                n.title.toLowerCase().includes(keyword) || 
+                (n.subtitle && n.subtitle.toLowerCase().includes(keyword)) || 
+                n.content.join(' ').toLowerCase().includes(keyword) || 
+                n.tags.some(t => t.toLowerCase().includes(keyword))
+            );
+            
+            renderHomeView(filtered, `"<span class="text-rose-600">${keyword}</span>" 검색 결과 (${filtered.length}건)`);
+        }
+
+        function filterCategory(categoryKeyword) {
+            window.location.hash = ''; 
+            document.getElementById('search-input').value = ''; 
+            
+            updateNavUI(categoryKeyword);
+
+            if (categoryKeyword === '전체') {
+                renderHomeView(newsData);
+            } else {
+                const filtered = newsData.filter(n => n.category.includes(categoryKeyword));
+                renderHomeView(filtered, `${categoryKeyword} 뉴스`);
+            }
+        }
+
+        function updateNavUI(categoryKeyword) {
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('border-b-[3px]', 'border-slate-900', 'text-slate-900');
+                if (el.dataset.cat === categoryKeyword) {
+                    el.classList.add('border-b-[3px]', 'border-slate-900', 'text-slate-900');
+                }
+            });
+        }
+
+        function renderPage() {
+            const hash = window.location.hash;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Trigger reflow for animation
+            const main = document.getElementById('app-main');
+            main.classList.remove('fade-in');
+            void main.offsetWidth; 
+            main.classList.add('fade-in');
+            
+            if (hash.startsWith('#article-')) {
+                const id = hash.replace('#article-', '');
+                const article = newsData.find(n => n.id === id);
+                if (article) {
+                    renderArticleView(article);
+                    return;
+                }
+            }
+            if (hash === '') {
+                filterCategory('전체');
+            }
+        }
+
+        // ==========================================
+        // HOME VIEW (Portal Layout)
+        // ==========================================
+        function renderHomeView(dataToRender = newsData, customTitle = null) {
+            const mainContainer = document.getElementById('app-main');
+            
+            if (customTitle) {
+                if (dataToRender.length === 0) {
+                    mainContainer.innerHTML = `
+                        <h2 class="text-2xl font-black text-slate-900 mb-6 border-b-2 border-slate-900 pb-3">${customTitle}</h2>
+                        <div class="py-32 text-center text-slate-500 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                            <i class="fa-regular fa-folder-open text-6xl mb-4 text-slate-300"></i>
+                            <p class="text-lg font-medium">해당하는 기사가 없습니다.</p>
+                            <button onclick="filterCategory('전체')" class="mt-6 px-6 py-2.5 bg-slate-900 text-white rounded-full font-bold hover:bg-slate-800 transition shadow-md hover:shadow-lg">홈으로 돌아가기</button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let listHtml = dataToRender.map(n => `
+                    <a href="#article-${n.id}" class="flex flex-col sm:flex-row gap-6 group border-b border-slate-200 pb-8 mb-8 hover:bg-white p-4 rounded-xl transition duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div class="relative w-full sm:w-56 h-36 flex-shrink-0 overflow-hidden rounded-lg">
+                            ${n.isExclusive ? '<span class="absolute top-2 left-2 bg-red-600 text-white text-[11px] font-black px-2 py-1 rounded shadow-md z-10">단독</span>' : ''}
+                            <img src="${n.image.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <span class="text-xs text-rose-600 font-black mb-1.5">${n.category}</span>
+                            <h3 class="text-[22px] font-bold group-hover:text-rose-700 leading-tight text-slate-900 tracking-tight">${n.title}</h3>
+                            <p class="text-[15px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">${n.subtitle || n.content[0]}</p>
+                            <div class="text-xs text-slate-400 mt-4 font-medium">${n.author.name} 기자 <span class="mx-2">|</span> ${n.date.published.split(' ')[0]}</div>
+                        </div>
+                    </a>
+                `).join('');
+
+                mainContainer.innerHTML = `
+                    <h2 class="text-2xl font-black text-slate-900 mb-8 border-b-2 border-slate-900 pb-3">${customTitle}</h2>
+                    <div class="max-w-4xl">
+                        ${listHtml}
+                    </div>
+                `;
+                return;
+            }
+
+            if (dataToRender.length === 0) return;
+
+            const mainNews = dataToRender[0];
+            const subNewsList = dataToRender.slice(1, 5); 
+            const restNews = dataToRender; 
+
+            mainContainer.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                    <!-- Left: Main Article Grid (8 cols) -->
+                    <div class="lg:col-span-8 space-y-8">
+
+                        <div class="flex items-center gap-3 border-b-2 border-slate-900 pb-3">
+                            <h2 class="text-[18px] font-black text-slate-900">주요 뉴스</h2>
+                            <span class="text-[12px] text-slate-400 font-medium">트루핑키스 편집팀 선정</span>
+                        </div>
+
+                        <!-- TOP: 큰 카드 1 + 작은 카드 2개 스택 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <a href="#article-${mainNews.id}" class="group block bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm card-hover">
+                                <div class="relative overflow-hidden h-52">
+                                    ${mainNews.isExclusive ? '<span class="absolute top-3 left-3 bg-red-600 text-white text-[11px] font-black px-2 py-1 rounded shadow z-10">단독</span>' : ''}
+                                    <img src="${mainNews.image.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                </div>
+                                <div class="p-5">
+                                    <span class="text-[11px] text-rose-600 font-black">${mainNews.category}</span>
+                                    <h3 class="text-[18px] font-black mt-1 leading-snug text-slate-900 group-hover:text-rose-700 line-clamp-2" style="word-break:keep-all">${mainNews.title}</h3>
+                                    <p class="text-[13px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">${mainNews.subtitle || mainNews.content[0]}</p>
+                                    <p class="text-[12px] text-slate-400 mt-3 font-medium">${mainNews.author.name} 기자 · ${mainNews.date.published.split(' ')[0]}</p>
+                                </div>
+                            </a>
+                            <div class="flex flex-col gap-4">
+                                ${subNewsList.slice(0,2).map(n => `
+                                    <a href="#article-${n.id}" class="group flex gap-4 bg-white rounded-xl border border-slate-200 shadow-sm p-4 card-hover items-start">
+                                        <div class="w-24 h-20 flex-shrink-0 overflow-hidden rounded-lg">
+                                            <img src="${n.image.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <span class="text-[11px] text-rose-600 font-black">${n.category}</span>
+                                            <h3 class="text-[15px] font-bold mt-0.5 leading-snug text-slate-900 group-hover:text-rose-700 line-clamp-3" style="word-break:keep-all">${n.title}</h3>
+                                            <p class="text-[12px] text-slate-400 mt-2 font-medium">${n.author.name} 기자</p>
+                                        </div>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 border-b border-slate-200 pb-2 pt-4">
+                            <h2 class="text-[16px] font-black text-slate-700">더 많은 뉴스</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                            ${subNewsList.slice(2).concat(dataToRender.slice(5)).map(n => `
+                                <a href="#article-${n.id}" class="group block bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm card-hover">
+                                    <div class="relative overflow-hidden h-36">
+                                        ${n.isExclusive ? '<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded z-10">단독</span>' : ''}
+                                        <img src="${n.image.url}" class="w-full h-full object-cover group-hover:scale-105 transition">
+                                    </div>
+                                    <div class="p-4">
+                                        <span class="text-[11px] text-rose-600 font-black">${n.category}</span>
+                                        <h3 class="text-[15px] font-bold mt-1 leading-snug text-slate-900 group-hover:text-rose-700 line-clamp-2" style="word-break:keep-all">${n.title}</h3>
+                                        <p class="text-[12px] text-slate-400 mt-2 font-medium">${n.author.name} 기자 · ${n.date.published.split(' ')[0]}</p>
+                                    </div>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Right: Sidebar (4 cols) -->
+                    <aside class="lg:col-span-4 flex flex-col gap-6">
+                        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                            <p class="text-[15px] text-slate-700 mb-4 font-bold tracking-tight">트루핑키스 로그인하고 맞춤 기사를 확인하세요.</p>
+                            <button onclick="alert('아이디와 비밀번호를 확인해주세요.')" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                                <i class="fa-solid fa-shield-halved mr-2"></i> 안전한 로그인
+                            </button>
+                            <div class="flex justify-between text-[13px] text-slate-500 mt-5 px-1 font-medium">
+                                <span class="hover:text-rose-600 cursor-pointer transition" onclick="alert('로그인 서비스 준비중입니다.')">아이디 찾기</span>
+                                <span class="hover:text-rose-600 cursor-pointer transition" onclick="alert('로그인 서비스 준비중입니다.')">비밀번호 찾기</span>
+                                <span class="text-slate-300 cursor-not-allowed" title="현재 회원가입을 지원하지 않습니다.">회원가입 불가</span>
+                            </div>
+                        </div>
+                        <div class="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
+                            <h3 class="font-black text-[16px] p-5 border-b border-slate-100 bg-slate-50 text-slate-900 flex justify-between items-center tracking-tight">
+                                <span><i class="fa-solid fa-bolt mr-2 text-yellow-500"></i> 많이 본 뉴스</span>
+                                <span class="text-[11px] text-slate-400 font-medium">1분 전 기준</span>
+                            </h3>
+                            <ul class="divide-y divide-slate-100">
+                                ${restNews.map((n, i) => `
+                                    <li class="flex gap-4 items-start group cursor-pointer px-5 py-4 hover:bg-slate-50 transition" onclick="window.location.hash='#article-${n.id}'">
+                                        <span class="text-lg font-black italic ${i < 3 ? 'text-rose-600' : 'text-slate-300'} w-5 text-center flex-shrink-0 mt-0.5">${i+1}</span>
+                                        <p class="text-[14px] text-slate-800 group-hover:text-rose-700 font-medium leading-snug line-clamp-2" style="word-break: keep-all;">${n.title}</p>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        <div class="bg-gradient-to-br from-rose-50 to-pink-50 border border-rose-100 rounded-2xl p-6 shadow-sm card-hover">
+                            <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 text-rose-600 text-lg">
+                                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                            </div>
+                            <h3 class="text-[17px] font-black text-slate-900 mb-2 tracking-tight">팩트체크 미션 안내</h3>
+                            <p class="text-[13px] text-slate-600 leading-relaxed font-medium">이곳의 기사 중에는 <strong>진짜 정책 뉴스</strong>와 <strong>가짜 뉴스</strong>가 숨어 있습니다. 기사를 꼼꼼히 읽고 하단의 퀴즈에 도전하세요!</p>
+                        </div>
+                    </aside>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // ARTICLE VIEW
+        // ==========================================
+        function renderArticleView(news) {
+            const mainContainer = document.getElementById('app-main');
+            
+            let contentHTML = '';
+            news.content.forEach((paragraph, index) => {
+                contentHTML += `<p class="mb-7">${paragraph}</p>`;
+                if (news.bodyAssets) {
+                    const asset = news.bodyAssets.find(a => a.insertAfterIndex === index);
+                    if (asset) {
+                        contentHTML += `
+                            <figure class="my-12 p-1 bg-white border border-slate-200 shadow-md rounded-xl mx-auto max-w-[95%]">
+                                <img src="${asset.url}" class="w-full h-auto rounded-lg" alt="본문 삽입 이미지">
+                                <figcaption class="text-[14px] text-slate-500 font-sans mt-3 mb-2 text-center tracking-tight font-medium">
+                                    ▲ ${asset.caption}
+                                </figcaption>
+                            </figure>
+                        `;
+                    }
+                }
+            });
+
+            let commentsHTML = news.comments.map(c => `
+                <div class="py-5 border-b border-slate-100 last:border-0">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-bold text-[15px] text-slate-800">${c.user}</span>
+                        <span class="text-xs text-slate-400 font-medium">${c.time}</span>
+                    </div>
+                    <p class="text-[15px] text-slate-700 mb-4 leading-relaxed">${c.content}</p>
+                    <div class="flex gap-4 text-[13px] text-slate-500 font-medium">
+                        <button class="flex items-center gap-1.5 hover:text-rose-600 transition"><i class="fa-regular fa-thumbs-up"></i> ${c.likes}</button>
+                        <button class="flex items-center gap-1.5 hover:text-red-500 transition"><i class="fa-regular fa-thumbs-down"></i> ${c.dislikes}</button>
+                    </div>
+                </div>
+            `).join('');
+
+            mainContainer.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    <!-- Left: Article (8 cols) -->
+                    <article class="lg:col-span-8 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                        
+                        <header class="mb-8 border-b border-slate-200 pb-8">
+                            <div class="text-slate-800 font-bold text-[13px] mb-4 border border-slate-200 inline-block px-3 py-1 rounded-full bg-slate-50">
+                                ${news.isExclusive ? '<span class="text-red-600 mr-1.5"><i class="fa-solid fa-bolt"></i> 단독</span>' : ''}${news.category}
+                            </div>
+                            <h2 class="text-[38px] font-black leading-[1.3] text-slate-900 mb-5 tracking-tight" style="word-break: keep-all;">${news.title}</h2>
+                            <h3 class="text-[20px] text-slate-500 font-medium leading-relaxed">${news.subtitle}</h3>
+                        </header>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between py-4 mb-10 gap-6 bg-slate-50 px-6 rounded-2xl border border-slate-100">
+                            <div class="flex items-center gap-4">
+                                <img src="${news.author.profile}" class="w-12 h-12 rounded-full border-2 border-white shadow-sm bg-white">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-0.5">
+                                        <span class="font-bold text-[15px] text-slate-900">${news.author.name}</span>
+                                        <span class="text-[11px] text-white bg-slate-800 px-2 py-0.5 rounded-full font-bold tracking-wide">기자구독</span>
+                                    </div>
+                                    <div class="text-[13px] text-slate-500 font-medium">${news.author.department} (${news.author.email})</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:items-end gap-3">
+                                <div class="text-[13px] text-slate-400 font-medium">입력 ${news.date.published} <span class="mx-1">|</span> 수정 ${news.date.modified}</div>
+                                <div class="flex items-center gap-3 text-slate-400">
+                                    <button class="w-8 h-8 rounded-full border border-slate-200 hover:border-rose-400 hover:text-rose-600 transition flex items-center justify-center font-bold text-sm bg-white" onclick="changeFontSize('decrease')">가-</button>
+                                    <button class="w-8 h-8 rounded-full border border-slate-200 hover:border-rose-400 hover:text-rose-600 transition flex items-center justify-center font-bold text-base bg-white" onclick="changeFontSize('increase')">가+</button>
+                                    <span class="w-px h-4 bg-slate-200 mx-1"></span>
+                                    <button class="hover:text-slate-900 transition flex items-center gap-2 text-sm font-bold ml-1" onclick="window.location.hash=''"><i class="fa-solid fa-list"></i> 목록</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="news-body-content" class="article-body">
+                            <figure class="mb-12">
+                                <img src="${news.image.url}" class="w-full h-auto rounded-xl shadow-sm" alt="기사 대표 이미지">
+                                <figcaption class="text-[14px] text-slate-500 mt-3 tracking-tight font-medium text-center">▲ ${news.image.caption}</figcaption>
+                            </figure>
+
+                            <div class="space-y-2">
+                                ${contentHTML}
+                                
+                                <div class="my-14 pl-8 border-l-[6px] border-slate-800 bg-slate-50 p-8 rounded-r-2xl">
+                                    <p class="text-[22px] font-bold text-slate-800 leading-relaxed tracking-tight" style="word-break: keep-all;">"${news.quote}"</p>
+                                </div>
+                            </div>
+                            <p class="mt-12 text-[15px] text-slate-500 font-sans font-medium text-right border-t border-slate-100 pt-6">${news.author.name} 기자 (${news.author.email})</p>
+                        </div>
+
+                        <!-- 🌟 인지적 과속 방지턱 (Fact Check Quiz) 🌟 -->
+                        <div class="mt-16 bg-gradient-to-b from-slate-50 to-white border-2 border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm relative overflow-hidden" id="quiz-section">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                            
+                            <h3 class="text-[26px] font-black text-slate-900 mb-3 text-center tracking-tight relative z-10">🤔 이 기사, 팩트체크 하셨나요?</h3>
+                            <p class="text-[15px] text-slate-600 mb-8 text-center font-medium relative z-10">단순히 찍어서 맞추는 것은 무의미합니다.<br>아래 <strong class="text-rose-600">3가지 팩트체크 과정</strong>을 모두 수행해야 판별할 수 있습니다.</p>
+                            
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200 mb-8 space-y-5 shadow-sm relative z-10">
+                                <label class="flex items-start gap-4 cursor-pointer group">
+                                    <input type="checkbox" class="fact-checkbox mt-0.5">
+                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기자의 <strong>소속과 이메일 주소</strong>가 신뢰할 만한 언론사의 것인지 확인했습니다.</span>
+                                </label>
+                                <label class="flex items-start gap-4 cursor-pointer group">
+                                    <input type="checkbox" class="fact-checkbox mt-0.5">
+                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기사에 등장하는 <strong>기관명이나 기술, 법안</strong>을 포털 사이트에서 직접 검색해 보았습니다.</span>
+                                </label>
+                                <label class="flex items-start gap-4 cursor-pointer group">
+                                    <input type="checkbox" class="fact-checkbox mt-0.5">
+                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기사에 제시된 사진, 수치, 인용구가 <strong>상식적으로 타당한지</strong> 비판적으로 고민했습니다.</span>
+                                </label>
+                            </div>
+
+                            <div id="vote-area" class="opacity-40 grayscale pointer-events-none transition-all duration-700 relative z-10">
+                                <div class="mb-8 bg-rose-50/50 p-6 rounded-2xl border border-rose-100">
+                                    <label class="block text-[15px] font-bold text-slate-800 mb-3">당신이 가짜/진짜로 판별한 <span class="text-rose-600">가장 결정적인 단서</span>는 무엇인가요? <span class="text-red-500">*</span></label>
+                                    <input type="text" id="reason-input" class="w-full bg-white border-2 border-slate-200 rounded-xl p-4 text-[16px] focus:outline-none focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 transition shadow-sm" placeholder="예: KVIST라는 연구소를 검색해보니 존재하지 않았습니다.">
+                                </div>
+                                
+                                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                    <button onclick="submitFactCheck(true, '${news.type}', '${news.sourceNote}')" class="w-full sm:w-56 py-4.5 bg-slate-900 text-white font-black text-lg rounded-xl shadow-lg hover:bg-slate-800 hover:-translate-y-1 transition transform">진짜 뉴스 (FACT)</button>
+                                    <button onclick="submitFactCheck(false, '${news.type}', '${news.sourceNote}')" class="w-full sm:w-56 py-4.5 bg-red-600 text-white font-black text-lg rounded-xl shadow-lg hover:bg-red-700 hover:-translate-y-1 transition transform">가짜 뉴스 (FAKE)</button>
+                                </div>
+                            </div>
+                            
+                            <div id="quiz-result" class="mt-10 hidden text-left transition-all duration-500 relative z-10"></div>
+                        </div>
+
+                        <!-- Comments Section -->
+                        <div class="mt-16 pt-10 border-t-[3px] border-slate-900">
+                            <h3 class="text-xl font-black text-slate-900 mb-8 tracking-tight">댓글 <span class="text-rose-600">${news.comments.length}</span></h3>
+                            <div class="space-y-2">${commentsHTML}</div>
+                        </div>
+                    </article>
+
+                    <!-- Right: Sidebar (4 cols) -->
+                    <aside class="lg:col-span-4 mt-8 lg:mt-0">
+                        <div class="bg-white border border-slate-200 rounded-2xl p-6 mb-8 shadow-sm sticky top-28">
+                            <h3 class="font-black text-slate-900 mb-5 border-b border-slate-100 pb-3 text-[17px] tracking-tight"><i class="fa-regular fa-newspaper mr-2 text-rose-600"></i> 관련 기사 읽어보기</h3>
+                            <ul class="space-y-4">
+                                ${newsData.filter(n => n.id !== news.id).map(n => `
+                                    <li class="group cursor-pointer" onclick="window.location.hash='#article-${n.id}'">
+                                        <div class="flex gap-3">
+                                            <img src="${n.image.url}" class="w-20 h-16 object-cover rounded shadow-sm group-hover:opacity-80 transition">
+                                            <p class="text-[14px] font-medium text-slate-700 group-hover:text-rose-600 leading-snug line-clamp-3" style="word-break: keep-all;">
+                                                ${n.title}
+                                            </p>
+                                        </div>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            `;
+            
+            document.getElementById('news-body-content').style.fontSize = currentFontSize + 'px';
+
+            setTimeout(() => {
+                const checkboxes = document.querySelectorAll('.fact-checkbox');
+                const voteArea = document.getElementById('vote-area');
+                checkboxes.forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        const allChecked = Array.from(checkboxes).every(c => c.checked);
+                        if(allChecked) {
+                            voteArea.classList.remove('opacity-40', 'grayscale', 'pointer-events-none');
+                        } else {
+                            voteArea.classList.add('opacity-40', 'grayscale', 'pointer-events-none');
+                        }
+                    });
+                });
+            }, 0);
+        }
+
+        function changeFontSize(action) {
+            const body = document.getElementById('news-body-content');
+            if(action === 'increase' && currentFontSize < 24) currentFontSize += 2;
+            if(action === 'decrease' && currentFontSize > 14) currentFontSize -= 2;
+            body.style.fontSize = currentFontSize + 'px';
+        }
+
+        function submitFactCheck(userThinksItsReal, actualType, sourceNote) {
+            const reasonInput = document.getElementById('reason-input').value.trim();
+            if(reasonInput.length < 5) {
+                alert("찍기 방지! 💡 기사를 판별한 결정적인 단서나 이유를 5글자 이상 적어주세요.");
+                document.getElementById('reason-input').focus();
+                return;
+            }
+
+            const isActualReal = actualType === 'real';
+            const isCorrect = userThinksItsReal === isActualReal;
+            const resultDiv = document.getElementById('quiz-result');
+            
+            resultDiv.classList.remove('hidden');
+            resultDiv.classList.add('fade-in');
+            
+            if (isCorrect) {
+                resultDiv.innerHTML = `
+                    <div class="p-8 bg-emerald-50 border-2 border-emerald-400 rounded-2xl shadow-sm">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl shadow-inner">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h4 class="text-[22px] font-black text-emerald-800 tracking-tight">정답입니다! 훌륭한 비판적 사고입니다.</h4>
+                        </div>
+                        <p class="text-slate-700 text-[16px] leading-relaxed mb-6 font-medium">
+                            이 기사는 <strong>${isActualReal ? '공공누리 제1유형의 진짜 정책 뉴스' : '미디어 교육을 위해 만들어진 가짜 뉴스'}</strong>가 맞습니다. <br>
+                            작성해주신 단서 <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded italic">"${reasonInput}"</span> 가 아주 날카롭습니다!
+                        </p>
+                        <div class="bg-white p-5 rounded-xl border border-emerald-200 text-[14px] text-slate-600 shadow-sm leading-relaxed">
+                            <span class="text-emerald-700 font-black mb-1 block"><i class="fa-solid fa-chalkboard-user mr-1"></i> [강사의 해설]</span>
+                            ${sourceNote}
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="p-8 bg-red-50 border-2 border-red-400 rounded-2xl shadow-sm">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-2xl shadow-inner">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <h4 class="text-[22px] font-black text-red-800 tracking-tight">아쉽게도 틀렸습니다. 가짜 뉴스에 속으셨네요!</h4>
+                        </div>
+                        <p class="text-slate-700 text-[16px] leading-relaxed mb-6 font-medium">
+                            이 기사는 사실 <strong>${isActualReal ? '공공누리 제1유형의 진짜 정책 뉴스' : '미디어 교육을 위해 만들어진 가짜 뉴스'}</strong>입니다.<br>
+                            적어주신 내용 <span class="bg-red-100 text-red-800 px-2 py-0.5 rounded italic">"${reasonInput}"</span> 을 바탕으로 본문을 다시 한번 확인해 보세요.
+                        </p>
+                        <div class="bg-white p-5 rounded-xl border border-red-200 text-[14px] text-slate-600 shadow-sm leading-relaxed">
+                            <span class="text-red-700 font-black mb-1 block"><i class="fa-solid fa-chalkboard-user mr-1"></i> [강사의 해설]</span>
+                            ${sourceNote}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // ==========================================
+        // PRIVACY POLICY MODAL
+        // ==========================================
+        function showPrivacyPolicy() {
+            const modal = document.createElement('div');
+            modal.id = 'privacy-modal';
+            modal.className = 'fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm';
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col">
+                    <div class="flex justify-between items-center p-8 border-b border-slate-200">
+                        <h2 class="text-2xl font-black text-slate-900 tracking-tight">개인정보처리방침</h2>
+                        <button onclick="document.getElementById('privacy-modal').remove()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center text-slate-600 font-bold text-lg">&times;</button>
+                    </div>
+                    <div class="overflow-y-auto p-8 text-[14px] text-slate-600 leading-relaxed space-y-6">
+                        <p class="text-[13px] text-slate-400 font-medium">시행일: 2026년 5월 12일 | 트루핑키스 뉴스 (Truepinky's News)</p>
+
+                        <section>
+                            <h3 class="text-[17px] font-black text-slate-800 mb-2">제1조 (개인정보의 수집 및 이용)</h3>
+                            <p>트루핑키스 뉴스(이하 "본 사이트")는 현재 회원가입 기능을 운영하지 않으며, 사용자로부터 <strong>어떠한 개인정보도 수집하지 않습니다.</strong></p>
+                            <p class="mt-2">본 사이트는 미디어 리터러시 교육 목적으로만 운영되며, 사용자가 입력하는 팩트체크 내용(판별 이유)은 해당 브라우저 세션 내에서만 사용되고 서버로 전송되거나 저장되지 않습니다.</p>
+                        </section>
+
+                        <section>
+                            <h3 class="text-[17px] font-black text-slate-800 mb-2">제2조 (쿠키 및 자동 수집 정보)</h3>
+                            <p>본 사이트는 별도의 쿠키(Cookie), 로컬스토리지(LocalStorage), 또는 사용자 추적 기술을 사용하지 않습니다. 방문 기록이나 행동 데이터를 수집하거나 제3자에게 제공하지 않습니다.</p>
+                        </section>
+
+                        <section>
+                            <h3 class="text-[17px] font-black text-slate-800 mb-2">제3조 (외부 리소스 이용)</h3>
+                            <p>본 사이트는 화면 구성을 위해 아래 외부 서비스의 공개 CDN 리소스를 사용합니다. 이 과정에서 사용자의 IP 주소가 해당 서버에 노출될 수 있습니다.</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1 text-slate-500">
+                                <li>Google Fonts (폰트)</li>
+                                <li>jsDelivr CDN (Pretendard 폰트)</li>
+                                <li>Tailwind CSS CDN (스타일)</li>
+                                <li>Font Awesome CDN (아이콘)</li>
+                                <li>Unsplash (기사 예시 이미지)</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h3 class="text-[17px] font-black text-slate-800 mb-2">제4조 (콘텐츠 출처 안내)</h3>
+                            <p>본 사이트 내 일부 기사는 <strong>공공누리 제1유형(출처표시)</strong> 조건의 공공저작물을 바탕으로 교육 목적으로 각색한 것이며, 나머지는 미디어 리터러시 교육을 위해 허구로 창작된 내용입니다. 두 종류의 기사가 혼재하며, 이는 교육적 의도에 의한 것입니다.</p>
+                        </section>
+
+                        <section>
+                            <h3 class="text-[17px] font-black text-slate-800 mb-2">제5조 (문의처)</h3>
+                            <p>개인정보 관련 문의: <a href="mailto:truepinkys@edu.kr" class="text-rose-600 hover:underline font-bold">truepinkys@edu.kr</a></p>
+                        </section>
+                    </div>
+                    <div class="p-6 border-t border-slate-100 text-right">
+                        <button onclick="document.getElementById('privacy-modal').remove()" class="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition">확인</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+        }
+
+        initApp();
+    </script>
+</body>
+</html>
+
