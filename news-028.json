@@ -1,6 +1,10 @@
 {
   "id": "news-028",
-  "category": "문화/생활",
+  "category": "문화와 놀이",
+  "categories": [
+    "문화와 놀이",
+    "학교생활"
+  ],
   "isExclusive": true,
   "title": "도서관 책 연체하면 책이 자동으로 집까지 찾아온다",
   "subtitle": "스마트도서추적협회 “책 표지에 귀가 본능 센서 장착” 주장",

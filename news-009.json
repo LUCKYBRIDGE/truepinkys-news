@@ -1,6 +1,10 @@
 {
   "id": "news-009",
-  "category": "사회/진로",
+  "category": "학교생활",
+  "categories": [
+    "학교생활",
+    "안전"
+  ],
   "isExclusive": false,
   "title": "한국잡월드, 현장체험학습 단체에 안전지킴이 서비스 도입",
   "subtitle": "버스 하차부터 체험관 이동까지 학생 단체 이동을 세심하게 돕는 안전 지원",

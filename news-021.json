@@ -1,6 +1,9 @@
 {
   "id": "news-021",
-  "category": "생활/건강",
+  "category": "건강과 마음",
+  "categories": [
+    "건강과 마음"
+  ],
   "isExclusive": false,
   "title": "소규모 유치원·어린이집도 급식 보존식 보관 의무화",
   "subtitle": "아이들이 먹는 급식 안전을 위해 점검과 위생교육 강화",

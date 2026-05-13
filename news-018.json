@@ -1,6 +1,10 @@
 {
   "id": "news-018",
-  "category": "사회/안전",
+  "category": "안전",
+  "categories": [
+    "안전",
+    "학교생활"
+  ],
   "isExclusive": false,
   "title": "모든 시·도에 안전체험관 만들고 학교 안전교육 강화",
   "subtitle": "심폐소생술과 재난 대피를 직접 익히는 체험 중심 교육 확대",

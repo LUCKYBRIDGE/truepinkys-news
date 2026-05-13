@@ -1,6 +1,9 @@
 {
   "id": "news-030",
-  "category": "생활/건강",
+  "category": "건강과 마음",
+  "categories": [
+    "건강과 마음"
+  ],
   "isExclusive": true,
   "title": "아침마다 물컵에 이름을 불러주면 기억력이 40% 오른다",
   "subtitle": "두뇌습관개발원 “소리 진동이 물 분자를 학습형으로 바꿔” 발표",

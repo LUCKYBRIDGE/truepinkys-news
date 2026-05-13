@@ -1,6 +1,10 @@
 {
   "id": "news-012",
-  "category": "사회/교육",
+  "category": "학교생활",
+  "categories": [
+    "학교생활",
+    "함께 사는 사회"
+  ],
   "isExclusive": false,
   "title": "초1·2 학교폭력 사안, 심의 전 관계회복 프로그램 우선 실시",
   "subtitle": "저학년 특성을 고려해 사과와 이해, 회복을 돕는 교육적 대응 강화",

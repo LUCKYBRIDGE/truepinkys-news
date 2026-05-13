@@ -1,6 +1,10 @@
 {
   "id": "news-029",
-  "category": "사회/안전",
+  "category": "안전",
+  "categories": [
+    "안전",
+    "학교생활"
+  ],
   "isExclusive": true,
   "title": "비 오는 날 노란 우산 쓰면 자동차가 자동 정지한다?",
   "subtitle": "도로안심기술단 “색상 인식으로 어린이 보호” 홍보",

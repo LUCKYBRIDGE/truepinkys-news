@@ -1,6 +1,10 @@
 {
   "id": "news-002",
-  "category": "IT/과학",
+  "category": "과학과 디지털",
+  "categories": [
+    "과학과 디지털",
+    "건강과 마음"
+  ],
   "isExclusive": true,
   "title": "내일부터 스마트폰 화면만 봐도 '비타민 D' 합성된다... 기술 개발 완료",
   "subtitle": "한국가상과학기술원(KVIST) '바이오 광신호' 연구팀, 세계 최초 상용화",

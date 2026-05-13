@@ -1,6 +1,10 @@
 {
   "id": "news-010",
-  "category": "생활/건강",
+  "category": "건강과 마음",
+  "categories": [
+    "건강과 마음",
+    "학교생활"
+  ],
   "isExclusive": false,
   "title": "초등학생 식생활 교육, 늘봄학교 프로그램으로 만난다",
   "subtitle": "건강한 식습관을 배우는 맞춤형 교육을 초등 저학년부터 확대",

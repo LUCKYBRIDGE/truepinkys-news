@@ -1,6 +1,10 @@
 {
   "id": "news-015",
-  "category": "사회/복지",
+  "category": "건강과 마음",
+  "categories": [
+    "건강과 마음",
+    "함께 사는 사회"
+  ],
   "isExclusive": false,
   "title": "학생 마음건강 상시 지원, 치료 바우처 최대 300만 원까지",
   "subtitle": "상담교사와 전문가가 위기 학생을 조기에 발견하고 통합 지원",

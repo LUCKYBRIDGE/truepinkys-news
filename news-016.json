@@ -1,6 +1,10 @@
 {
   "id": "news-016",
-  "category": "사회/복지",
+  "category": "함께 사는 사회",
+  "categories": [
+    "함께 사는 사회",
+    "학교생활"
+  ],
   "isExclusive": false,
   "title": "형편 어려운 초·중·고교생에 교육급여 지원",
   "subtitle": "새 학기 학부모가 알아두면 좋은 교육·건강·식품안전 법령 안내",

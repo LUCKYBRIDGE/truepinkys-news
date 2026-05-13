@@ -1,6 +1,10 @@
 {
   "id": "news-025",
-  "category": "사회/교육",
+  "category": "학교생활",
+  "categories": [
+    "학교생활",
+    "과학과 디지털"
+  ],
   "isExclusive": true,
   "title": "전국 초등학교, 스마트워치 없으면 출석 인정 안 된다?",
   "subtitle": "출석자동화본부 “손목 센서로 등교 의지까지 측정” 발표",

@@ -1,6 +1,10 @@
 {
   "id": "news-013",
-  "category": "사회/교육",
+  "category": "학교생활",
+  "categories": [
+    "학교생활",
+    "함께 사는 사회"
+  ],
   "isExclusive": false,
   "title": "초3 방과후 이용권 50만 원, 온동네 초등돌봄·교육 추진",
   "subtitle": "학교와 지역사회가 함께 초등학생 돌봄과 방과후 교육을 넓힌다",

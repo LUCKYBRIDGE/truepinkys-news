@@ -1,6 +1,9 @@
 {
   "id": "news-020",
-  "category": "문화/생활",
+  "category": "문화와 놀이",
+  "categories": [
+    "문화와 놀이"
+  ],
   "isExclusive": false,
   "title": "명절 연휴, 궁·능 무료 개방과 가족 문화행사 풍성",
   "subtitle": "박물관·미술관·지역축제에서 전통놀이와 전시 체험 운영",

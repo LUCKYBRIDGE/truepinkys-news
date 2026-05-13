@@ -1,6 +1,10 @@
 {
   "id": "news-022",
-  "category": "환경/과학",
+  "category": "과학과 디지털",
+  "categories": [
+    "과학과 디지털",
+    "함께 사는 사회"
+  ],
   "isExclusive": false,
   "title": "공공부문 전기·수소차 전환 기준 강화로 친환경 교통 확대",
   "subtitle": "공공기관이 먼저 내연차량을 줄여 깨끗한 이동 환경 조성",

@@ -1,6 +1,10 @@
 {
   "id": "news-014",
-  "category": "생활/건강",
+  "category": "건강과 마음",
+  "categories": [
+    "건강과 마음",
+    "학교생활"
+  ],
   "isExclusive": false,
   "title": "학생체력평가, 초등 3·4학년도 실시해 학교 체육활동 확대",
   "subtitle": "스포츠클럽과 방학 스포츠캠프 등으로 건강한 성장 지원",

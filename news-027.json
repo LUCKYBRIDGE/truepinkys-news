@@ -1,6 +1,9 @@
 {
   "id": "news-027",
-  "category": "IT/과학",
+  "category": "과학과 디지털",
+  "categories": [
+    "과학과 디지털"
+  ],
   "isExclusive": true,
   "title": "달빛으로 충전되는 운동화 개발... 밤에 걸으면 휴대전화 충전 가능",
   "subtitle": "루나에너지연구소 “보름달 아래 20분이면 완충” 발표",

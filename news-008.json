@@ -1,6 +1,10 @@
 {
   "id": "news-008",
-  "category": "사회/안전",
+  "category": "안전",
+  "categories": [
+    "안전",
+    "학교생활"
+  ],
   "isExclusive": false,
   "title": "새 학기 앞두고 초등학교 주변 안전 위해요소 집중 점검",
   "subtitle": "교통·식품·유해환경·제품·불법광고물 등 5개 분야를 민관 합동으로 확인",

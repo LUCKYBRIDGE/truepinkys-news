@@ -1,6 +1,10 @@
 {
   "id": "news-024",
-  "category": "생활/건강",
+  "category": "건강과 마음",
+  "categories": [
+    "건강과 마음",
+    "과학과 디지털"
+  ],
   "isExclusive": true,
   "title": "우유팩 QR코드 찍으면 키가 5cm 큰다... 성장인증 우유 출시 논란",
   "subtitle": "성장코드협회 “마시는 것보다 스캔 순서가 중요” 홍보",

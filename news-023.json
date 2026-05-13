@@ -1,6 +1,10 @@
 {
   "id": "news-023",
-  "category": "IT/교육",
+  "category": "학교생활",
+  "categories": [
+    "학교생활",
+    "과학과 디지털"
+  ],
   "isExclusive": true,
   "title": "다음 주부터 숙제 AI가 자동 제출... 초등학생 필기 숙제 사라진다",
   "subtitle": "미래학습효율원, “손글씨보다 뇌파 학습 로그가 더 정확” 주장",

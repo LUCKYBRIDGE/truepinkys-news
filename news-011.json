@@ -1,6 +1,10 @@
 {
   "id": "news-011",
-  "category": "IT/복지",
+  "category": "함께 사는 사회",
+  "categories": [
+    "함께 사는 사회",
+    "과학과 디지털"
+  ],
   "isExclusive": false,
   "title": "누구나 쓰기 쉬운 배리어프리 키오스크 준비 본격화",
   "subtitle": "장애인·어르신도 편리하게 이용하도록 공공·교육·의료기관 점검 강화",

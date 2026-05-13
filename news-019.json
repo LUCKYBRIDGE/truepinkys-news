@@ -1,6 +1,10 @@
 {
   "id": "news-019",
-  "category": "IT/사회",
+  "category": "함께 사는 사회",
+  "categories": [
+    "함께 사는 사회",
+    "과학과 디지털"
+  ],
   "isExclusive": false,
   "title": "디지털포용법 시행, AI·디지털 혜택을 모두가 누리도록",
   "subtitle": "정보격차와 디지털 차별을 줄이기 위한 국가 차원의 기반 마련",
