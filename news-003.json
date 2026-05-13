@@ -7,7 +7,7 @@
   "author": {
     "name": "이문화",
     "email": "culture@korea.kr",
-    "profile": "https://api.dicebear.com/7.x/notionists/svg?seed=culture",
+    "profile": "./assets/avatar-policy.svg",
     "department": "문화체육관광부 기자단"
   },
   "date": {
@@ -15,14 +15,14 @@
     "modified": "2025.04.01. 오전 10:00"
   },
   "image": {
-    "url": "https://images.unsplash.com/photo-1546874177-9e664107314e?auto=format&fit=crop&w=1200&q=80",
-    "caption": "조명이 켜진 경복궁 경회루의 야경을 담은 교육용 예시 이미지입니다. 원문 정책브리핑 사진이 아닙니다. (이미지 출처: Unsplash)"
+    "url": "./assets/news-003.svg",
+    "caption": "경복궁 야간 관람과 현장 안내 동선을 시각화했습니다. 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 이미지이며, 실제 보도 사진이 아닙니다."
   },
   "bodyAssets": [
     {
       "type": "image",
-      "url": "https://placehold.co/800x400/f3f4f6/4b5563?text=경복궁+야간개장+관람수칙+안내문+(이미지+필요)",
-      "caption": "경복궁 야간 무료 관람 안내 표지판. 혼잡을 막기 위해 우측 통행을 권장하고 있다.",
+      "url": "./assets/news-003-body.svg",
+      "caption": "경복궁 야간 관람 수칙 안내표. 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 자료입니다.",
       "insertAfterIndex": 1
     }
   ],
@@ -33,12 +33,33 @@
     "문화재청 관계자는 \"이번 조치로 서울의 야간 관광 명소로서 경복궁의 가치가 더욱 높아질 것\"이라며 \"질서 있는 관람을 위한 성숙한 시민 의식을 당부드린다\"고 덧붙였다."
   ],
   "quote": "우리의 아름다운 궁궐은 소수만이 누리는 특권이 아니라 모든 국민의 휴식처가 되어야 합니다.",
-  "tags": ["경복궁", "야간개장", "문화재청", "무료입장"],
-  "reactions": { "좋아요": 3500, "응원해요": 1200, "놀라워요": 150 },
+  "tags": [
+    "경복궁",
+    "야간개장",
+    "문화재청",
+    "무료입장"
+  ],
+  "reactions": {
+    "좋아요": 3500,
+    "응원해요": 1200,
+    "놀라워요": 150
+  },
   "comments": [
-    { "user": "history****", "time": "2025.04.01. 10:20", "content": "맨날 예매 실패해서 슬펐는데 진짜 최고의 정책입니다 ㅠㅠ", "likes": 890, "dislikes": 2 },
-    { "user": "seoul****", "time": "2025.04.01. 10:50", "content": "사람 너무 많이 몰려서 사고 날까봐 걱정이긴 하네요. 동선 관리 잘 해주시길!", "likes": 420, "dislikes": 15 }
+    {
+      "user": "history****",
+      "time": "2025.04.01. 10:20",
+      "content": "맨날 예매 실패해서 슬펐는데 진짜 최고의 정책입니다 ㅠㅠ",
+      "likes": 890,
+      "dislikes": 2
+    },
+    {
+      "user": "seoul****",
+      "time": "2025.04.01. 10:50",
+      "content": "사람 너무 많이 몰려서 사고 날까봐 걱정이긴 하네요. 동선 관리 잘 해주시길!",
+      "likes": 420,
+      "dislikes": 15
+    }
   ],
   "type": "real",
-  "sourceNote": "이 기사는 정책브리핑(www.korea.kr)의 공공누리 제1유형 기사를 바탕으로 각색되었습니다."
+  "sourceNote": "이 기사는 정책브리핑(www.korea.kr)의 공공누리 제1유형 기사를 바탕으로 각색되었습니다. 이미지·표·그래프는 진짜뉴스, 가짜뉴스 여부와 관계없이 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 자료입니다."
 }

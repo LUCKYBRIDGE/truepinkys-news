@@ -1,17 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
-  <title id="title">Generated educational news image 12</title>
-  <desc id="desc">Abstract local illustration for a student-friendly policy news article.</desc>
-  <rect width="1200" height="720" fill="#fff7ed"/>
-  <circle cx="1020" cy="120" r="150" fill="#22c55e" opacity="0.18"/>
-  <circle cx="180" cy="620" r="190" fill="#c2410c" opacity="0.12"/>
-  <rect x="150" y="150" width="900" height="420" rx="44" fill="#ffffff" opacity="0.92"/>
-  <rect x="210" y="210" width="360" height="42" rx="21" fill="#c2410c" opacity="0.85"/>
-  <rect x="210" y="284" width="720" height="28" rx="14" fill="#94a3b8" opacity="0.45"/>
-  <rect x="210" y="340" width="610" height="28" rx="14" fill="#94a3b8" opacity="0.35"/>
-  <g transform="translate(710 250)">
-    <circle cx="110" cy="80" r="68" fill="#22c55e" opacity="0.85"/>
-    <rect x="20" y="158" width="180" height="118" rx="26" fill="#c2410c" opacity="0.85"/>
-    <path d="M53 206h114M53 238h84" stroke="#fff" stroke-width="18" stroke-linecap="round" opacity="0.86"/>
-  </g>
-  <path d="M230 500c110-74 204-74 314 0s204 74 314 0" fill="none" stroke="#22c55e" stroke-width="24" stroke-linecap="round" opacity="0.65"/>
+<title id="title">학교폭력 관계회복 대화</title><desc id="desc">트루핑키스 뉴스에서 AI로 생성한 교육용 대체 이미지입니다.</desc>
+<rect width="1200" height="720" fill="#fff7ed"/><circle cx="1030" cy="120" r="170" fill="#7c3aed" opacity=".16"/><circle cx="130" cy="630" r="210" fill="#c2410c" opacity=".12"/>
+<rect x="90" y="90" width="1020" height="540" rx="48" fill="#fff" opacity=".95"/>
+<rect x="112" y="112" width="260" height="44" rx="22" fill="#c2410c" opacity=".9"/><text x="138" y="141" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#fff">AI GENERATED NEWS VISUAL</text>
+<text x="112" y="160" font-family="Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">학교폭력 관계회복 대화</text>
+<rect x="112" y="500" width="530" height="56" rx="18" fill="#f8fafc"/><text x="138" y="536" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#475569">트루핑키스 뉴스 AI 생성 이미지</text>
+<path d="M720 380c70-90 120-100 165-25" stroke="#c2410c" stroke-width="52" fill="none" stroke-linecap="round"/><path d="M1000 380c-70-90-120-100-165-25" stroke="#7c3aed" stroke-width="52" fill="none" stroke-linecap="round"/><circle cx="860" cy="275" r="48" fill="#fff" opacity=".8"/>
 </svg>

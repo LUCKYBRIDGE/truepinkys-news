@@ -1,16 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
-  <title id="title">Fake news training image 23</title>
-  <desc id="desc">Local abstract illustration for a media literacy fake news article.</desc>
-  <rect width="1200" height="720" fill="#fef2f2"/>
-  <path d="M0 620C170 540 300 600 470 520s310-80 470 0 210 72 260 42v158H0z" fill="#dc2626" opacity="0.14"/>
-  <rect x="150" y="130" width="900" height="460" rx="40" fill="#fff" opacity="0.94"/>
-  <circle cx="290" cy="280" r="90" fill="#facc15" opacity="0.8"/>
-  <path d="M250 280l32 32 58-72" fill="none" stroke="#fff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-  <rect x="430" y="210" width="520" height="44" rx="22" fill="#dc2626" opacity="0.82"/>
-  <rect x="430" y="300" width="410" height="28" rx="14" fill="#94a3b8" opacity="0.45"/>
-  <rect x="430" y="356" width="480" height="28" rx="14" fill="#94a3b8" opacity="0.35"/>
-  <g transform="translate(810 420)">
-    <circle cx="0" cy="0" r="54" fill="#facc15" opacity="0.9"/>
-    <path d="M-22-5h44M0-27v44" stroke="#fff" stroke-width="16" stroke-linecap="round"/>
-  </g>
+<title id="title">AI 자동 숙제 주장</title><desc id="desc">트루핑키스 뉴스에서 AI로 생성한 교육용 대체 이미지입니다.</desc>
+<rect width="1200" height="720" fill="#fdf2f8"/><circle cx="1030" cy="120" r="170" fill="#0ea5e9" opacity=".16"/><circle cx="130" cy="630" r="210" fill="#be185d" opacity=".12"/>
+<rect x="90" y="90" width="1020" height="540" rx="48" fill="#fff" opacity=".95"/>
+<rect x="112" y="112" width="310" height="44" rx="22" fill="#be185d" opacity=".9"/><text x="138" y="141" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#fff">AI GENERATED TRAINING VISUAL</text>
+<text x="112" y="160" font-family="Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">AI 자동 숙제 주장</text>
+<rect x="112" y="500" width="530" height="56" rx="18" fill="#f8fafc"/><text x="138" y="536" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#475569">트루핑키스 뉴스 AI 생성 이미지</text>
+<rect x="720" y="220" width="270" height="190" rx="22" fill="#be185d"/><rect x="745" y="248" width="220" height="120" rx="10" fill="#fff" opacity=".9"/><circle cx="856" cy="390" r="10" fill="#fff"/>
 </svg>

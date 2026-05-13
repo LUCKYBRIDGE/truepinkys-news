@@ -16,7 +16,7 @@
   },
   "image": {
     "url": "./assets/news-018.svg",
-    "caption": "안전체험관과 심폐소생술 교육을 상징하는 로컬 대체 이미지입니다."
+    "caption": "안전체험관에서 대피 요령과 심폐소생술을 배우는 장면을 시각화했습니다. 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 이미지이며, 실제 보도 사진이 아닙니다."
   },
   "bodyAssets": [],
   "content": [
@@ -55,5 +55,5 @@
     }
   ],
   "type": "real",
-  "sourceNote": "정책브리핑 브리핑 「모든 시·도에 안전체험관 만든다…교사 심폐소생술 연수 확대」(2022.12.26)를 바탕으로 각색했습니다. 공공누리 제1유형. 원문: https://www.korea.kr/briefing/policyBriefingView.do?newsId=148909824"
+  "sourceNote": "정책브리핑 브리핑 「모든 시·도에 안전체험관 만든다…교사 심폐소생술 연수 확대」(2022.12.26)를 바탕으로 각색했습니다. 공공누리 제1유형. 원문: https://www.korea.kr/briefing/policyBriefingView.do?newsId=148909824 이미지·표·그래프는 진짜뉴스, 가짜뉴스 여부와 관계없이 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 자료입니다."
 }

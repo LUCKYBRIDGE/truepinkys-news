@@ -1,17 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
-  <title id="title">Generated educational news image 8</title>
-  <desc id="desc">Abstract local illustration for a student-friendly policy news article.</desc>
-  <rect width="1200" height="720" fill="#dbeafe"/>
-  <circle cx="1020" cy="120" r="150" fill="#fbbf24" opacity="0.18"/>
-  <circle cx="180" cy="620" r="190" fill="#1d4ed8" opacity="0.12"/>
-  <rect x="150" y="150" width="900" height="420" rx="44" fill="#ffffff" opacity="0.92"/>
-  <rect x="210" y="210" width="360" height="42" rx="21" fill="#1d4ed8" opacity="0.85"/>
-  <rect x="210" y="284" width="720" height="28" rx="14" fill="#94a3b8" opacity="0.45"/>
-  <rect x="210" y="340" width="610" height="28" rx="14" fill="#94a3b8" opacity="0.35"/>
-  <g transform="translate(710 250)">
-    <circle cx="110" cy="80" r="68" fill="#fbbf24" opacity="0.85"/>
-    <rect x="20" y="158" width="180" height="118" rx="26" fill="#1d4ed8" opacity="0.85"/>
-    <path d="M53 206h114M53 238h84" stroke="#fff" stroke-width="18" stroke-linecap="round" opacity="0.86"/>
-  </g>
-  <path d="M230 500c110-74 204-74 314 0s204 74 314 0" fill="none" stroke="#fbbf24" stroke-width="24" stroke-linecap="round" opacity="0.65"/>
+<title id="title">학교 주변 안전 점검</title><desc id="desc">트루핑키스 뉴스에서 AI로 생성한 교육용 대체 이미지입니다.</desc>
+<rect width="1200" height="720" fill="#f0fdf4"/><circle cx="1030" cy="120" r="170" fill="#f59e0b" opacity=".16"/><circle cx="130" cy="630" r="210" fill="#15803d" opacity=".12"/>
+<rect x="90" y="90" width="1020" height="540" rx="48" fill="#fff" opacity=".95"/>
+<rect x="112" y="112" width="260" height="44" rx="22" fill="#15803d" opacity=".9"/><text x="138" y="141" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#fff">AI GENERATED NEWS VISUAL</text>
+<text x="112" y="160" font-family="Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">학교 주변 안전 점검</text>
+<rect x="112" y="500" width="530" height="56" rx="18" fill="#f8fafc"/><text x="138" y="536" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#475569">트루핑키스 뉴스 AI 생성 이미지</text>
+<rect x="690" y="210" width="340" height="280" rx="28" fill="#15803d"/><path d="M735 440h250M760 390h200M785 340h150M810 290h100" stroke="#fff" stroke-width="22" stroke-linecap="round"/><circle cx="820" cy="250" r="35" fill="#f59e0b"/>
 </svg>

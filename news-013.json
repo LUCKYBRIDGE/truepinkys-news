@@ -16,7 +16,7 @@
   },
   "image": {
     "url": "./assets/news-013.svg",
-    "caption": "방과후 교실과 지역 돌봄을 상징하는 따뜻한 색감의 로컬 이미지입니다."
+    "caption": "학교, 도서관, 체육시설이 함께 초등돌봄을 지원하는 모습을 시각화했습니다. 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 이미지이며, 실제 보도 사진이 아닙니다."
   },
   "bodyAssets": [],
   "content": [
@@ -55,5 +55,5 @@
     }
   ],
   "type": "real",
-  "sourceNote": "정책브리핑 정책뉴스 「초3에 50만 원 방과후 이용권 제공…온동네 초등돌봄·교육 추진」(2026.02.03)를 바탕으로 작성했습니다. 공공누리 제1유형. 원문: https://www.korea.kr/news/policyNewsView.do?newsId=148958996&pWise=sub&pWiseSub=C1"
+  "sourceNote": "정책브리핑 정책뉴스 「초3에 50만 원 방과후 이용권 제공…온동네 초등돌봄·교육 추진」(2026.02.03)를 바탕으로 작성했습니다. 공공누리 제1유형. 원문: https://www.korea.kr/news/policyNewsView.do?newsId=148958996&pWise=sub&pWiseSub=C1 이미지·표·그래프는 진짜뉴스, 가짜뉴스 여부와 관계없이 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 자료입니다."
 }

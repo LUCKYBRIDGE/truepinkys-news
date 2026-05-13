@@ -7,7 +7,7 @@
   "author": {
     "name": "나진실",
     "email": "truth@dailytruth.co.kr",
-    "profile": "https://api.dicebear.com/7.x/notionists/svg?seed=truth",
+    "profile": "./assets/avatar-fake.svg",
     "department": "미래기술부"
   },
   "date": {
@@ -15,14 +15,14 @@
     "modified": "2026.05.12. 오전 11:15"
   },
   "image": {
-    "url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
-    "caption": "연구원이 스마트폰 화면을 확인하는 모습을 연출한 교육용 예시 이미지입니다. (이미지 출처: Unsplash)"
+    "url": "./assets/news-002.svg",
+    "caption": "스마트폰 화면과 건강 주장을 결합한 허위 정보 판별용 장면입니다. 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 이미지이며, 실제 보도 사진이 아닙니다."
   },
   "bodyAssets": [
     {
       "type": "image",
-      "url": "./assets/vitamin_d_graph.png",
-      "caption": "[그래프] 스마트폰 화면 밝기(%)에 따른 체내 비타민 D 생성률 변화. 80% 이상에서 급격히 증가하는 것을 볼 수 있다. (자료: KVIST)",
+      "url": "./assets/news-002-body.svg",
+      "caption": "스마트폰 화면 밝기와 비타민 D 생성률이라는 허위 주장을 그래프로 표현한 예시. 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 자료입니다.",
       "insertAfterIndex": 2
     }
   ],
@@ -33,11 +33,25 @@
     "특히 이 기술은 별도의 하드웨어 교체 없이 소프트웨어 업데이트만으로 즉시 적용될 예정이다. 단, 화면 밝기를 80% 이상으로 유지해야 최적의 효과를 볼 수 있다."
   ],
   "quote": "이번 기술은 야외 활동이 절대적으로 부족한 현대인들에게 디지털 기기가 오히려 건강 도우미가 될 수 있음을 보여주는 혁신적 사례입니다.",
-  "tags": ["비타민D", "스마트폰", "KVIST"],
-  "reactions": { "좋아요": 1245, "응원해요": 85, "놀라워요": 432 },
+  "tags": [
+    "비타민D",
+    "스마트폰",
+    "KVIST"
+  ],
+  "reactions": {
+    "좋아요": 1245,
+    "응원해요": 85,
+    "놀라워요": 432
+  },
   "comments": [
-    { "user": "kjk9****", "time": "2026.05.12. 10:45", "content": "대박... 이제 폰만 열심히 보면 되는 건가요? ㅋㅋㅋㅋ 아이폰도 빨리 업데이트 됐으면!!", "likes": 452, "dislikes": 12 }
+    {
+      "user": "kjk9****",
+      "time": "2026.05.12. 10:45",
+      "content": "대박... 이제 폰만 열심히 보면 되는 건가요? ㅋㅋㅋㅋ 아이폰도 빨리 업데이트 됐으면!!",
+      "likes": 452,
+      "dislikes": 12
+    }
   ],
   "type": "fake",
-  "sourceNote": "이 기사는 미디어 리터러시 교육을 위해 창작된 허위(가짜) 뉴스입니다."
+  "sourceNote": "이 기사는 미디어 리터러시 교육을 위해 창작된 허위(가짜) 뉴스입니다. 이미지·표·그래프는 진짜뉴스, 가짜뉴스 여부와 관계없이 트루핑키스 뉴스에서 AI로 생성한 교육용 대체 자료입니다."
 }
