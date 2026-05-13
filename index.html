@@ -78,16 +78,27 @@
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .service-tab {
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .service-tab.active {
+            background: #ffffff;
+            color: #be123c;
+            border-color: #ffffff;
+        }
     </style>
 </head>
 <body class="bg-slate-50 antialiased">
 
     <!-- Top Utility Bar -->
-    <div class="bg-slate-900 text-slate-300 text-[11px] py-1.5 font-medium tracking-wide">
-        <div class="max-w-[1150px] mx-auto px-4 flex justify-between items-center">
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-white transition">트루핑키스 홈</a>
-                <a href="#" class="text-rose-400 hover:text-rose-300 transition font-bold"><i class="fa-solid fa-graduation-cap mr-1"></i> 교육센터</a>
+    <div class="bg-slate-900 text-slate-300 text-[11px] py-2 font-medium tracking-wide">
+        <div class="max-w-[1150px] mx-auto px-4 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
+            <div class="flex gap-3 items-center">
+                <a href="./" class="service-tab active rounded-full px-4 py-2 text-sm font-black transition">트루핑키스 뉴스</a>
+                <a href="https://luckybridge.github.io/truepinkys-wiki/" class="service-tab rounded-full px-4 py-2 text-sm font-black hover:bg-white hover:text-slate-900 transition">트루핑키스 위키</a>
             </div>
             <div class="flex gap-4 items-center">
                 <a href="#" class="hover:text-white transition" onclick="alert('로그인 서비스 준비중입니다.')">로그인</a>
