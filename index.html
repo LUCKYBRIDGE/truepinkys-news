@@ -213,6 +213,9 @@
                 이 웹사이트는 미디어 리터러시 교육을 목적으로 제작된 어린이 뉴스 플랫폼입니다.<br>
                 평소 기사 목록에는 <strong>공공누리 제1유형(출처표시)</strong> 조건에 따라 제공된 실제 국가 정책 뉴스(출처: 정책브리핑)를 바탕으로 한 진짜 뉴스만 표시됩니다. 가짜 뉴스는 별도 활동 코너에서만 제공합니다.
             </p>
+            <p class="text-xs leading-relaxed mb-4 text-slate-500">
+                트루핑키스 뉴스는 교육용 서비스이며, 저작권자 또는 권리자의 정당한 삭제 요청이 있을 경우 관련 게시글은 검토 후 삭제될 수 있습니다.
+            </p>
             <p class="text-[11px] font-bold text-slate-600">© 2026 Truepinky's Media (Educational Purpose Only).</p>
         </div>
     </footer>
@@ -221,6 +224,7 @@
         let newsData = [];
         let currentFontSize = 17.6; // 1.1rem eq
         let activeNewsMode = 'home';
+        const EDUCATIONAL_SERVICE_NOTICE = '트루핑키스 뉴스는 미디어 리터러시 교육용 서비스입니다. 저작권자 또는 권리자의 정당한 삭제 요청이 있을 경우 관련 게시글은 검토 후 삭제될 수 있습니다.';
         const NEWS_MODES = {
             home: {
                 label: '일반 뉴스',
@@ -419,6 +423,15 @@
             `;
         }
 
+        function renderEducationalNotice() {
+            return `
+                <div class="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-[13px] sm:text-[14px] text-amber-900 font-semibold leading-relaxed flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info mt-0.5 text-amber-600"></i>
+                    <p>${EDUCATIONAL_SERVICE_NOTICE}</p>
+                </div>
+            `;
+        }
+
         function renderCategoryGuide() {
             return CATEGORY_GROUPS.filter(category => category.id !== '전체').map(category => {
                 const count = getCurrentArticles().filter(n => hasArticleCategory(n, category.id)).length;
@@ -538,6 +551,7 @@
                 if (dataToRender.length === 0) {
                     mainContainer.innerHTML = `
                         ${renderModeSwitcher()}
+                        ${renderEducationalNotice()}
                         <h2 class="text-2xl font-black text-slate-900 mb-6 border-b-2 border-slate-900 pb-3">${customTitle}</h2>
                         <div class="py-32 text-center text-slate-500 bg-white rounded-2xl border border-slate-200 shadow-sm">
                             <i class="fa-regular fa-folder-open text-6xl mb-4 text-slate-300"></i>
@@ -564,6 +578,7 @@
 
                 mainContainer.innerHTML = `
                     ${renderModeSwitcher()}
+                    ${renderEducationalNotice()}
                     <h2 class="text-2xl font-black text-slate-900 mb-8 border-b-2 border-slate-900 pb-3">${customTitle}</h2>
                     <div class="max-w-4xl">
                         ${listHtml}
@@ -580,6 +595,7 @@
 
             mainContainer.innerHTML = `
                 ${renderModeSwitcher()}
+                ${renderEducationalNotice()}
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
                     <!-- Left: Main Article Grid (8 cols) -->
@@ -759,6 +775,7 @@
             ` : '';
 
             mainContainer.innerHTML = `
+                ${renderEducationalNotice()}
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     <!-- Left: Article (8 cols) -->
                     <article class="lg:col-span-8 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
@@ -1023,8 +1040,9 @@
                         </section>
 
                         <section>
-                            <h3 class="text-[17px] font-black text-slate-800 mb-2">제4조 (콘텐츠 출처 안내)</h3>
+                            <h3 class="text-[17px] font-black text-slate-800 mb-2">제4조 (콘텐츠 출처 및 삭제 요청 안내)</h3>
                             <p>본 사이트의 일반 기사 목록은 <strong>공공누리 제1유형(출처표시)</strong> 조건의 공공저작물을 바탕으로 한 진짜 뉴스 중심으로 운영됩니다. 미디어 리터러시 활동 코너에서는 교육을 위해 허구로 창작된 가짜 뉴스도 별도로 제공합니다.</p>
+                            <p class="mt-2">${EDUCATIONAL_SERVICE_NOTICE}</p>
                             <p class="mt-2">기사 하단의 댓글과 반응 수는 기사의 진짜/가짜 여부와 별개로 모두 가상 예시입니다.</p>
                         </section>
 
