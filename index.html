@@ -90,6 +90,41 @@
             border-color: #ffffff;
         }
 
+        body.fake-check-mode {
+            background: #fff1f2;
+        }
+
+        body.fake-check-mode .glass-header {
+            background: rgba(255, 241, 242, 0.94);
+            border-bottom-color: #fecdd3;
+        }
+
+        body.fake-check-mode #app-main {
+            background: linear-gradient(180deg, rgba(255, 241, 242, 0.92) 0%, rgba(255, 247, 247, 0) 320px);
+            border-radius: 24px;
+        }
+
+        body.fake-check-mode #app-main .bg-white {
+            background-color: #fffafa;
+        }
+
+        body.fake-check-mode #app-main .border-slate-200,
+        body.fake-check-mode #app-main .border-slate-100 {
+            border-color: #fecdd3;
+        }
+
+        body.fake-check-mode #app-main .bg-slate-50 {
+            background-color: #fff1f2;
+        }
+
+        #mode-indicator {
+            display: none;
+        }
+
+        body.fake-check-mode #mode-indicator {
+            display: block;
+        }
+
         .glossary-term {
             color: #be123c;
             font-weight: 800;
@@ -149,6 +184,13 @@
         <nav class="max-w-[1150px] mx-auto px-4 flex items-center h-12 overflow-x-auto whitespace-nowrap">
             <ul class="flex space-x-5 lg:space-x-7 text-[14px] sm:text-[15px] font-bold text-slate-600" id="main-nav"></ul>
         </nav>
+        <div id="mode-indicator" class="border-t border-rose-200 bg-rose-600 text-white shadow-sm">
+            <div class="max-w-[1150px] mx-auto px-4 py-2 flex items-center gap-2 text-[13px] sm:text-[14px] font-black tracking-tight">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <span>현재 모드: 가짜 뉴스 판별</span>
+                <span class="hidden sm:inline text-rose-100 font-bold">기사를 읽고 근거를 찾아 직접 판단하세요.</span>
+            </div>
+        </div>
     </header>
 
     <!-- Main Dynamic Content Container -->
@@ -184,12 +226,12 @@
                 label: '일반 뉴스',
                 title: '주요 뉴스',
                 description: '정책브리핑 공공저작물을 바탕으로 한 진짜 뉴스',
-                sidebar: '평소 홈페이지에는 진짜 정책 뉴스만 표시됩니다. 아래 판별 코너에서는 여러 기사를 읽고 직접 진짜인지 가짜인지 판단할 수 있습니다.'
+                sidebar: '평소 홈페이지에는 진짜 정책 뉴스만 표시됩니다. 아래 가짜 뉴스 판별에서는 여러 기사를 읽고 직접 진짜인지 가짜인지 판단할 수 있습니다.'
             },
             mission: {
-                label: '판별 활동',
-                title: '진짜 뉴스와 가짜 뉴스 판별 코너',
-                description: '기사 내용을 읽고 직접 근거를 찾아 판별하는 활동',
+                label: '가짜 뉴스 판별',
+                title: '가짜 뉴스 판별',
+                description: '기사 내용을 읽고 직접 근거를 찾아 가짜 뉴스를 가려내는 활동',
                 sidebar: '이 코너에서는 기사 유형을 미리 알려주지 않습니다. 제목, 출처, 본문 근거를 확인한 뒤 기사 하단 퀴즈에서 직접 판단해 보세요.'
             }
         };
@@ -296,6 +338,10 @@
             return newsData.filter(article => article.type === 'real');
         }
 
+        function updatePageModeChrome() {
+            document.body.classList.toggle('fake-check-mode', activeNewsMode === 'mission');
+        }
+
         function replaceRouteToActiveMode() {
             const nextHash = activeNewsMode === 'mission' ? '#fact-check' : '';
             history.replaceState(null, '', `${window.location.pathname}${window.location.search}${nextHash}`);
@@ -339,7 +385,7 @@
                                 <i class="fa-solid fa-magnifying-glass-chart"></i>
                             </span>
                             <span>
-                                <strong class="block text-[20px] font-black text-slate-900 tracking-tight">뉴스 판별 코너</strong>
+                                <strong class="block text-[20px] font-black text-slate-900 tracking-tight">가짜 뉴스 판별</strong>
                                 <span class="block text-[13px] text-slate-500 leading-snug mt-1">기사 유형을 숨긴 상태에서 읽고 직접 판별합니다.</span>
                             </span>
                         </span>
@@ -435,6 +481,7 @@
                 const article = newsData.find(n => n.id === id);
                 if (article) {
                     if (article.type === 'fake') activeNewsMode = 'mission';
+                    updatePageModeChrome();
                     updateNavUI(getArticleCategories(article)[0]);
                     renderArticleView(article);
                     return;
@@ -443,12 +490,14 @@
 
             if (hash === '#fact-check') {
                 activeNewsMode = 'mission';
+                updatePageModeChrome();
                 updateNavUI('전체');
                 renderHomeView(getCurrentArticles());
                 return;
             }
 
             activeNewsMode = 'home';
+            updatePageModeChrome();
             updateNavUI('전체');
             renderHomeView(getCurrentArticles());
         }
@@ -512,8 +561,8 @@
                     <!-- Left: Main Article Grid (8 cols) -->
                     <div class="lg:col-span-8 space-y-8">
 
-                        <div class="flex items-center gap-3 border-b-2 border-slate-900 pb-3">
-                            <h2 class="text-[18px] font-black text-slate-900">${modeMeta.title}</h2>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 border-b-2 border-slate-900 pb-3">
+                            <h2 class="text-[18px] font-black text-slate-900 whitespace-nowrap">${modeMeta.title}</h2>
                             <span class="text-[12px] text-slate-400 font-medium">${modeMeta.description}</span>
                         </div>
 
