@@ -178,29 +178,23 @@
     <script>
         let newsData = [];
         let currentFontSize = 17.6; // 1.1rem eq
-        let activeNewsType = 'real';
-        const NEWS_TYPE_CORNERS = {
-            real: {
-                label: '진짜 뉴스',
-                title: '진짜 뉴스 코너',
-                description: '정책브리핑 공공저작물을 바탕으로 한 기사',
-                icon: 'fa-newspaper',
-                accent: 'text-emerald-700',
-                activeBorder: 'border-emerald-600',
-                activeBg: 'bg-emerald-50'
+        let activeNewsMode = 'home';
+        const NEWS_MODES = {
+            home: {
+                label: '일반 뉴스',
+                title: '주요 뉴스',
+                description: '정책브리핑 공공저작물을 바탕으로 한 진짜 뉴스',
+                sidebar: '평소 홈페이지에는 진짜 정책 뉴스만 표시됩니다. 아래 판별 코너에서는 여러 기사를 읽고 직접 진짜인지 가짜인지 판단할 수 있습니다.'
             },
-            fake: {
-                label: '가짜 뉴스',
-                title: '가짜 뉴스 코너',
-                description: '미디어 리터러시 활동을 위해 창작한 판별용 기사',
-                icon: 'fa-triangle-exclamation',
-                accent: 'text-red-700',
-                activeBorder: 'border-red-600',
-                activeBg: 'bg-red-50'
+            mission: {
+                label: '판별 활동',
+                title: '진짜 뉴스와 가짜 뉴스 판별 코너',
+                description: '기사 내용을 읽고 직접 근거를 찾아 판별하는 활동',
+                sidebar: '이 코너에서는 기사 유형을 미리 알려주지 않습니다. 제목, 출처, 본문 근거를 확인한 뒤 기사 하단 퀴즈에서 직접 판단해 보세요.'
             }
         };
         const CATEGORY_GROUPS = [
-            { id: '전체', label: '전체 뉴스', icon: 'fa-house', description: '현재 코너의 모든 기사를 한 번에 봅니다.' },
+            { id: '전체', label: '전체 뉴스', icon: 'fa-house', description: '현재 화면의 모든 기사를 한 번에 봅니다.' },
             { id: '학교생활', label: '학교생활', icon: 'fa-school', description: '수업, 숙제, 방과후, 학교에서 생기는 일' },
             { id: '안전', label: '안전', icon: 'fa-shield-halved', description: '통학길, 체험학습, 사고 예방' },
             { id: '건강과 마음', label: '건강과 마음', icon: 'fa-heart-pulse', description: '몸 건강, 식생활, 마음 돌봄' },
@@ -293,25 +287,26 @@
             `).join('');
         }
 
-        function getNewsTypeMeta(type = activeNewsType) {
-            return NEWS_TYPE_CORNERS[type] || NEWS_TYPE_CORNERS.real;
+        function getNewsModeMeta(mode = activeNewsMode) {
+            return NEWS_MODES[mode] || NEWS_MODES.home;
         }
 
-        function getArticlesByType(type = activeNewsType) {
-            return newsData.filter(article => article.type === type);
+        function getCurrentArticles() {
+            if (activeNewsMode === 'mission') return newsData;
+            return newsData.filter(article => article.type === 'real');
         }
 
-        function replaceRouteToActiveCorner() {
-            const nextHash = activeNewsType === 'fake' ? '#corner-fake' : '';
+        function replaceRouteToActiveMode() {
+            const nextHash = activeNewsMode === 'mission' ? '#fact-check' : '';
             history.replaceState(null, '', `${window.location.pathname}${window.location.search}${nextHash}`);
         }
 
-        function showNewsCorner(type = 'real') {
-            activeNewsType = type === 'fake' ? 'fake' : 'real';
+        function showNewsCorner(mode = 'home') {
+            activeNewsMode = mode === 'mission' ? 'mission' : 'home';
             const searchInput = document.getElementById('search-input');
             if (searchInput) searchInput.value = '';
 
-            const nextHash = activeNewsType === 'fake' ? '#corner-fake' : '';
+            const nextHash = activeNewsMode === 'mission' ? '#fact-check' : '';
             if (window.location.hash === nextHash) {
                 renderPage();
             } else {
@@ -320,39 +315,42 @@
         }
 
         function returnToCornerList() {
-            showNewsCorner(activeNewsType);
+            showNewsCorner(activeNewsMode);
         }
 
-        function renderCornerSwitcher() {
+        function renderModeSwitcher() {
+            const isMission = activeNewsMode === 'mission';
             return `
                 <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                    ${Object.entries(NEWS_TYPE_CORNERS).map(([type, meta]) => {
-                        const isActive = activeNewsType === type;
-                        const count = getArticlesByType(type).length;
-                        return `
-                            <button onclick="showNewsCorner('${type}')" class="text-left bg-white border-2 ${isActive ? `${meta.activeBorder} ${meta.activeBg}` : 'border-slate-200'} rounded-xl p-5 shadow-sm hover:shadow-md transition group">
-                                <span class="flex items-start justify-between gap-4">
-                                    <span class="flex items-start gap-4">
-                                        <span class="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center ${meta.accent} shadow-sm">
-                                            <i class="fa-solid ${meta.icon}"></i>
-                                        </span>
-                                        <span>
-                                            <strong class="block text-[20px] font-black text-slate-900 tracking-tight">${meta.label}</strong>
-                                            <span class="block text-[13px] text-slate-500 leading-snug mt-1">${meta.description}</span>
-                                        </span>
-                                    </span>
-                                    <span class="text-[12px] font-black ${meta.accent} bg-white border border-slate-200 rounded-full px-3 py-1">${count}개</span>
-                                </span>
-                            </button>
-                        `;
-                    }).join('')}
+                    <button onclick="showNewsCorner('home')" class="text-left bg-white border-2 ${!isMission ? 'border-emerald-600 bg-emerald-50' : 'border-slate-200'} rounded-xl p-5 shadow-sm hover:shadow-md transition group">
+                        <span class="flex items-start gap-4">
+                            <span class="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-emerald-700 shadow-sm">
+                                <i class="fa-solid fa-newspaper"></i>
+                            </span>
+                            <span>
+                                <strong class="block text-[20px] font-black text-slate-900 tracking-tight">일반 뉴스</strong>
+                                <span class="block text-[13px] text-slate-500 leading-snug mt-1">평소 홈페이지에는 진짜 뉴스만 게시됩니다.</span>
+                            </span>
+                        </span>
+                    </button>
+                    <button onclick="showNewsCorner('mission')" class="text-left bg-white border-2 ${isMission ? 'border-rose-600 bg-rose-50' : 'border-slate-200'} rounded-xl p-5 shadow-sm hover:shadow-md transition group">
+                        <span class="flex items-start gap-4">
+                            <span class="w-11 h-11 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-rose-700 shadow-sm">
+                                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                            </span>
+                            <span>
+                                <strong class="block text-[20px] font-black text-slate-900 tracking-tight">뉴스 판별 코너</strong>
+                                <span class="block text-[13px] text-slate-500 leading-snug mt-1">기사 유형을 숨긴 상태에서 읽고 직접 판별합니다.</span>
+                            </span>
+                        </span>
+                    </button>
                 </section>
             `;
         }
 
         function renderCategoryGuide() {
             return CATEGORY_GROUPS.filter(category => category.id !== '전체').map(category => {
-                const count = getArticlesByType().filter(n => hasArticleCategory(n, category.id)).length;
+                const count = getCurrentArticles().filter(n => hasArticleCategory(n, category.id)).length;
                 return `
                     <button onclick="filterCategory('${category.id}')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-rose-50 transition group border border-transparent hover:border-rose-100">
                         <div class="flex items-start gap-3">
@@ -378,16 +376,16 @@
 
         function executeSearch() {
             const keyword = document.getElementById('search-input').value.trim().toLowerCase();
-            replaceRouteToActiveCorner();
+            replaceRouteToActiveMode();
             
             updateNavUI('전체');
 
             if (!keyword) {
-                renderHomeView(getArticlesByType());
+                renderHomeView(getCurrentArticles());
                 return;
             }
 
-            const filtered = getArticlesByType().filter(n => 
+            const filtered = getCurrentArticles().filter(n => 
                 n.title.toLowerCase().includes(keyword) ||
                 (n.subtitle && n.subtitle.toLowerCase().includes(keyword)) ||
                 n.content.join(' ').toLowerCase().includes(keyword) ||
@@ -395,21 +393,21 @@
                 n.tags.some(t => t.toLowerCase().includes(keyword))
             );
             
-            renderHomeView(filtered, `${getNewsTypeMeta().label} · "<span class="text-rose-600">${keyword}</span>" 검색 결과 (${filtered.length}건)`);
+            renderHomeView(filtered, `${getNewsModeMeta().label} · "<span class="text-rose-600">${keyword}</span>" 검색 결과 (${filtered.length}건)`);
         }
 
         function filterCategory(categoryKeyword) {
-            replaceRouteToActiveCorner();
+            replaceRouteToActiveMode();
             document.getElementById('search-input').value = ''; 
             
             updateNavUI(categoryKeyword);
-            const scopedArticles = getArticlesByType();
+            const scopedArticles = getCurrentArticles();
 
             if (categoryKeyword === '전체') {
                 renderHomeView(scopedArticles);
             } else {
                 const filtered = scopedArticles.filter(n => hasArticleCategory(n, categoryKeyword));
-                renderHomeView(filtered, `${getNewsTypeMeta().label} · ${getCategoryMeta(categoryKeyword).label}`);
+                renderHomeView(filtered, `${getNewsModeMeta().label} · ${getCategoryMeta(categoryKeyword).label}`);
             }
         }
 
@@ -436,23 +434,23 @@
                 const id = hash.replace('#article-', '');
                 const article = newsData.find(n => n.id === id);
                 if (article) {
-                    activeNewsType = article.type === 'fake' ? 'fake' : 'real';
+                    if (article.type === 'fake') activeNewsMode = 'mission';
                     updateNavUI(getArticleCategories(article)[0]);
                     renderArticleView(article);
                     return;
                 }
             }
 
-            if (hash === '#corner-fake') {
-                activeNewsType = 'fake';
+            if (hash === '#fact-check') {
+                activeNewsMode = 'mission';
                 updateNavUI('전체');
-                renderHomeView(getArticlesByType('fake'));
+                renderHomeView(getCurrentArticles());
                 return;
             }
 
-            activeNewsType = 'real';
+            activeNewsMode = 'home';
             updateNavUI('전체');
-            renderHomeView(getArticlesByType('real'));
+            renderHomeView(getCurrentArticles());
         }
 
         // ==========================================
@@ -460,12 +458,12 @@
         // ==========================================
         function renderHomeView(dataToRender = newsData, customTitle = null) {
             const mainContainer = document.getElementById('app-main');
-            const cornerMeta = getNewsTypeMeta();
+            const modeMeta = getNewsModeMeta();
             
             if (customTitle) {
                 if (dataToRender.length === 0) {
                     mainContainer.innerHTML = `
-                        ${renderCornerSwitcher()}
+                        ${renderModeSwitcher()}
                         <h2 class="text-2xl font-black text-slate-900 mb-6 border-b-2 border-slate-900 pb-3">${customTitle}</h2>
                         <div class="py-32 text-center text-slate-500 bg-white rounded-2xl border border-slate-200 shadow-sm">
                             <i class="fa-regular fa-folder-open text-6xl mb-4 text-slate-300"></i>
@@ -492,7 +490,7 @@
                 `).join('');
 
                 mainContainer.innerHTML = `
-                    ${renderCornerSwitcher()}
+                    ${renderModeSwitcher()}
                     <h2 class="text-2xl font-black text-slate-900 mb-8 border-b-2 border-slate-900 pb-3">${customTitle}</h2>
                     <div class="max-w-4xl">
                         ${listHtml}
@@ -508,15 +506,15 @@
             const restNews = dataToRender; 
 
             mainContainer.innerHTML = `
-                ${renderCornerSwitcher()}
+                ${renderModeSwitcher()}
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
                     <!-- Left: Main Article Grid (8 cols) -->
                     <div class="lg:col-span-8 space-y-8">
 
                         <div class="flex items-center gap-3 border-b-2 border-slate-900 pb-3">
-                            <h2 class="text-[18px] font-black text-slate-900">${cornerMeta.title}</h2>
-                            <span class="text-[12px] text-slate-400 font-medium">${cornerMeta.description}</span>
+                            <h2 class="text-[18px] font-black text-slate-900">${modeMeta.title}</h2>
+                            <span class="text-[12px] text-slate-400 font-medium">${modeMeta.description}</span>
                         </div>
 
                         <!-- TOP: 큰 카드 1 + 작은 카드 2개 스택 -->
@@ -575,7 +573,7 @@
                         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
                             <div class="flex items-center justify-between mb-3">
                                 <h3 class="text-[16px] font-black text-slate-900 tracking-tight">주제별 보기</h3>
-                                <span class="text-[11px] text-slate-400 font-bold">${cornerMeta.label}</span>
+                                <span class="text-[11px] text-slate-400 font-bold">${modeMeta.label}</span>
                             </div>
                             <div class="space-y-1">
                                 ${renderCategoryGuide()}
@@ -600,7 +598,7 @@
                                 <i class="fa-solid fa-magnifying-glass-chart"></i>
                             </div>
                             <h3 class="text-[17px] font-black text-slate-900 mb-2 tracking-tight">팩트체크 활동</h3>
-                            <p class="text-[13px] text-slate-600 leading-relaxed font-medium">${activeNewsType === 'real' ? '평소 목록에는 <strong>진짜 정책 뉴스</strong>만 표시됩니다. 가짜 뉴스는 위 활동 코너에서 따로 확인할 수 있습니다.' : '이 코너의 기사는 모두 미디어 리터러시 교육을 위해 만든 <strong>창작 가짜 뉴스</strong>입니다. 본문 아래 퀴즈에서 판별 단서를 정리해 보세요.'}</p>
+                            <p class="text-[13px] text-slate-600 leading-relaxed font-medium">${modeMeta.sidebar}</p>
                         </div>
                     </aside>
                 </div>
@@ -616,7 +614,7 @@
                 actualType: news.type,
                 sourceNote: news.sourceNote
             }));
-            const relatedArticles = getArticlesByType(news.type === 'fake' ? 'fake' : 'real').filter(n => n.id !== news.id);
+            const relatedArticles = getCurrentArticles().filter(n => n.id !== news.id);
             
             let contentHTML = '';
             news.content.forEach((paragraph, index) => {
