@@ -346,6 +346,23 @@
             return revealsAssetStatus ? fallbackCaption : normalizedCaption;
         }
 
+        function isReporterAuthor(author) {
+            return Boolean(author?.email) || /기자단/.test(author?.department || '');
+        }
+
+        function renderAuthorCredit(author) {
+            const name = author?.name || '트루핑키스 뉴스';
+            return `${name}${isReporterAuthor(author) ? ' 기자' : ''}`;
+        }
+
+        function renderAuthorMeta(author) {
+            return [author?.department, author?.email].filter(Boolean).join(' · ');
+        }
+
+        function renderAuthorBadge(author) {
+            return isReporterAuthor(author) ? '기자구독' : '원문출처';
+        }
+
         function updatePageModeChrome() {
             document.body.classList.toggle('fake-check-mode', activeNewsMode === 'mission');
         }
@@ -540,7 +557,7 @@
                             <span class="text-xs text-rose-600 font-black mb-1.5">${renderCategoryLabel(n)}</span>
                             <h3 class="text-[22px] font-bold group-hover:text-rose-700 leading-tight text-slate-900 tracking-tight">${n.title}</h3>
                             <p class="text-[15px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">${n.subtitle || n.content[0]}</p>
-                            <div class="text-xs text-slate-400 mt-4 font-medium">${n.author.name} 기자 <span class="mx-2">|</span> ${n.date.published.split(' ')[0]}</div>
+                            <div class="text-xs text-slate-400 mt-4 font-medium">${renderAuthorCredit(n.author)} <span class="mx-2">|</span> ${n.date.published.split(' ')[0]}</div>
                         </div>
                     </a>
                 `).join('');
@@ -583,7 +600,7 @@
                                     <span class="text-[11px] text-rose-600 font-black">${renderCategoryLabel(mainNews)}</span>
                                     <h3 class="text-[18px] font-black mt-1 leading-snug text-slate-900 group-hover:text-rose-700 line-clamp-2" style="word-break:keep-all">${mainNews.title}</h3>
                                     <p class="text-[13px] text-slate-500 mt-2 line-clamp-2 leading-relaxed">${mainNews.subtitle || mainNews.content[0]}</p>
-                                    <p class="text-[12px] text-slate-400 mt-3 font-medium">${mainNews.author.name} 기자 · ${mainNews.date.published.split(' ')[0]}</p>
+                                    <p class="text-[12px] text-slate-400 mt-3 font-medium">${renderAuthorCredit(mainNews.author)} · ${mainNews.date.published.split(' ')[0]}</p>
                                 </div>
                             </a>
                             <div class="flex flex-col gap-4">
@@ -595,7 +612,7 @@
                                         <div class="flex-1 min-w-0">
                                             <span class="text-[11px] text-rose-600 font-black">${renderCategoryLabel(n)}</span>
                                             <h3 class="text-[15px] font-bold mt-0.5 leading-snug text-slate-900 group-hover:text-rose-700 line-clamp-3" style="word-break:keep-all">${n.title}</h3>
-                                            <p class="text-[12px] text-slate-400 mt-2 font-medium">${n.author.name} 기자</p>
+                                            <p class="text-[12px] text-slate-400 mt-2 font-medium">${renderAuthorCredit(n.author)}</p>
                                         </div>
                                     </a>
                                 `).join('')}
@@ -615,7 +632,7 @@
                                     <div class="p-4">
                                         <span class="text-[11px] text-rose-600 font-black">${renderCategoryLabel(n)}</span>
                                         <h3 class="text-[15px] font-bold mt-1 leading-snug text-slate-900 group-hover:text-rose-700 line-clamp-2" style="word-break:keep-all">${n.title}</h3>
-                                        <p class="text-[12px] text-slate-400 mt-2 font-medium">${n.author.name} 기자 · ${n.date.published.split(' ')[0]}</p>
+                                        <p class="text-[12px] text-slate-400 mt-2 font-medium">${renderAuthorCredit(n.author)} · ${n.date.published.split(' ')[0]}</p>
                                     </div>
                                 </a>
                             `).join('')}
@@ -760,9 +777,9 @@
                                 <div>
                                     <div class="flex items-center gap-2 mb-0.5">
                                         <span class="font-bold text-[15px] text-slate-900">${news.author.name}</span>
-                                        <span class="text-[11px] text-white bg-slate-800 px-2 py-0.5 rounded-full font-bold tracking-wide">기자구독</span>
+                                        <span class="text-[11px] text-white bg-slate-800 px-2 py-0.5 rounded-full font-bold tracking-wide">${renderAuthorBadge(news.author)}</span>
                                     </div>
-                                    <div class="text-[13px] text-slate-500 font-medium">${news.author.department} (${news.author.email})</div>
+                                    <div class="text-[13px] text-slate-500 font-medium">${renderAuthorMeta(news.author)}</div>
                                 </div>
                             </div>
                             <div class="flex flex-col sm:items-end gap-3">
@@ -789,7 +806,7 @@
                                     <p class="text-[22px] font-bold text-slate-800 leading-relaxed tracking-tight" style="word-break: keep-all;">"${news.quote}"</p>
                                 </div>
                             </div>
-                            <p class="mt-12 text-[15px] text-slate-500 font-sans font-medium text-right border-t border-slate-100 pt-6">${news.author.name} 기자 (${news.author.email})</p>
+                            <p class="mt-12 text-[15px] text-slate-500 font-sans font-medium text-right border-t border-slate-100 pt-6">${renderAuthorCredit(news.author)}${news.author.email ? ` (${news.author.email})` : ''}</p>
                         </div>
 
                         ${factCheckQuizHTML}
