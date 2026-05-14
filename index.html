@@ -526,7 +526,6 @@
                 let listHtml = dataToRender.map(n => `
                     <a href="#article-${n.id}" class="flex flex-col sm:flex-row gap-6 group border-b border-slate-200 pb-8 mb-8 hover:bg-white p-4 rounded-xl transition duration-300 hover:shadow-lg hover:-translate-y-1">
                         <div class="relative w-full sm:w-56 h-36 flex-shrink-0 overflow-hidden rounded-lg">
-                            ${n.isExclusive ? '<span class="absolute top-2 left-2 bg-red-600 text-white text-[11px] font-black px-2 py-1 rounded shadow-md z-10">단독</span>' : ''}
                             <img src="${n.image.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         </div>
                         <div class="flex-1 flex flex-col justify-center">
@@ -570,7 +569,6 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <a href="#article-${mainNews.id}" class="group block bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm card-hover">
                                 <div class="relative overflow-hidden h-52">
-                                    ${mainNews.isExclusive ? '<span class="absolute top-3 left-3 bg-red-600 text-white text-[11px] font-black px-2 py-1 rounded shadow z-10">단독</span>' : ''}
                                     <img src="${mainNews.image.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                                 </div>
                                 <div class="p-5">
@@ -604,7 +602,6 @@
                             ${subNewsList.slice(2).concat(dataToRender.slice(5)).map(n => `
                                 <a href="#article-${n.id}" class="group block bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm card-hover">
                                     <div class="relative overflow-hidden h-36">
-                                        ${n.isExclusive ? '<span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded z-10">단독</span>' : ''}
                                         <img src="${n.image.url}" class="w-full h-full object-cover group-hover:scale-105 transition">
                                     </div>
                                     <div class="p-4">
@@ -697,6 +694,45 @@
                 </div>
             `).join('');
 
+            const factCheckQuizHTML = activeNewsMode === 'mission' ? `
+                        <!-- Fake news detection mode quiz -->
+                        <div class="mt-16 bg-gradient-to-b from-slate-50 to-white border-2 border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm relative overflow-hidden" id="quiz-section">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-full blur-3xl -mr-10 -mt-10"></div>
+
+                            <h3 class="text-[26px] font-black text-slate-900 mb-3 text-center tracking-tight relative z-10">이 기사, 팩트체크 하셨나요?</h3>
+                            <p class="text-[15px] text-slate-600 mb-8 text-center font-medium relative z-10">단순히 찍어서 맞추는 것은 무의미합니다.<br>아래 <strong class="text-rose-600">3가지 팩트체크 과정</strong>을 모두 수행해야 판별할 수 있습니다.</p>
+
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200 mb-8 space-y-5 shadow-sm relative z-10">
+                                <label class="flex items-start gap-4 cursor-pointer group">
+                                    <input type="checkbox" class="fact-checkbox mt-0.5">
+                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기자의 <strong>소속과 이메일 주소</strong>가 신뢰할 만한 언론사의 것인지 확인했습니다.</span>
+                                </label>
+                                <label class="flex items-start gap-4 cursor-pointer group">
+                                    <input type="checkbox" class="fact-checkbox mt-0.5">
+                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기사에 등장하는 <strong>기관명이나 기술, 법안</strong>을 포털 사이트에서 직접 검색해 보았습니다.</span>
+                                </label>
+                                <label class="flex items-start gap-4 cursor-pointer group">
+                                    <input type="checkbox" class="fact-checkbox mt-0.5">
+                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기사에 제시된 사진, 수치, 인용구가 <strong>상식적으로 타당한지</strong> 비판적으로 고민했습니다.</span>
+                                </label>
+                            </div>
+
+                            <div id="vote-area" class="opacity-40 grayscale pointer-events-none transition-all duration-700 relative z-10">
+                                <div class="mb-8 bg-rose-50/50 p-6 rounded-2xl border border-rose-100">
+                                    <label class="block text-[15px] font-bold text-slate-800 mb-3">당신이 가짜/진짜로 판별한 <span class="text-rose-600">가장 결정적인 단서</span>는 무엇인가요? <span class="text-red-500">*</span></label>
+                                    <input type="text" id="reason-input" class="w-full bg-white border-2 border-slate-200 rounded-xl p-4 text-[16px] focus:outline-none focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 transition shadow-sm" placeholder="예: 기사에 나온 기관명을 검색했지만 확인되지 않았습니다.">
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                    <button onclick="submitFactCheck(true, '${factCheckPayload}')" class="w-full sm:w-56 py-4.5 bg-slate-900 text-white font-black text-lg rounded-xl shadow-lg hover:bg-slate-800 hover:-translate-y-1 transition transform">진짜 뉴스 (FACT)</button>
+                                    <button onclick="submitFactCheck(false, '${factCheckPayload}')" class="w-full sm:w-56 py-4.5 bg-red-600 text-white font-black text-lg rounded-xl shadow-lg hover:bg-red-700 hover:-translate-y-1 transition transform">가짜 뉴스 (FAKE)</button>
+                                </div>
+                            </div>
+
+                            <div id="quiz-result" class="mt-10 hidden text-left transition-all duration-500 relative z-10"></div>
+                        </div>
+            ` : '';
+
             mainContainer.innerHTML = `
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     <!-- Left: Article (8 cols) -->
@@ -704,7 +740,7 @@
                         
                         <header class="mb-8 border-b border-slate-200 pb-8">
                             <div class="text-slate-800 font-bold text-[13px] mb-4 border border-slate-200 inline-block px-3 py-1 rounded-full bg-slate-50">
-                                ${news.isExclusive ? '<span class="text-red-600 mr-1.5"><i class="fa-solid fa-bolt"></i> 단독</span>' : ''}${renderCategoryLabel(news)}
+                                ${renderCategoryLabel(news)}
                             </div>
                             <h2 class="text-[38px] font-black leading-[1.3] text-slate-900 mb-5 tracking-tight" style="word-break: keep-all;">${news.title}</h2>
                             <h3 class="text-[20px] text-slate-500 font-medium leading-relaxed">${news.subtitle}</h3>
@@ -748,42 +784,7 @@
                             <p class="mt-12 text-[15px] text-slate-500 font-sans font-medium text-right border-t border-slate-100 pt-6">${news.author.name} 기자 (${news.author.email})</p>
                         </div>
 
-                        <!-- 🌟 인지적 과속 방지턱 (Fact Check Quiz) 🌟 -->
-                        <div class="mt-16 bg-gradient-to-b from-slate-50 to-white border-2 border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm relative overflow-hidden" id="quiz-section">
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-full blur-3xl -mr-10 -mt-10"></div>
-                            
-                            <h3 class="text-[26px] font-black text-slate-900 mb-3 text-center tracking-tight relative z-10">🤔 이 기사, 팩트체크 하셨나요?</h3>
-                            <p class="text-[15px] text-slate-600 mb-8 text-center font-medium relative z-10">단순히 찍어서 맞추는 것은 무의미합니다.<br>아래 <strong class="text-rose-600">3가지 팩트체크 과정</strong>을 모두 수행해야 판별할 수 있습니다.</p>
-                            
-                            <div class="bg-white p-6 rounded-2xl border border-slate-200 mb-8 space-y-5 shadow-sm relative z-10">
-                                <label class="flex items-start gap-4 cursor-pointer group">
-                                    <input type="checkbox" class="fact-checkbox mt-0.5">
-                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기자의 <strong>소속과 이메일 주소</strong>가 신뢰할 만한 언론사의 것인지 확인했습니다.</span>
-                                </label>
-                                <label class="flex items-start gap-4 cursor-pointer group">
-                                    <input type="checkbox" class="fact-checkbox mt-0.5">
-                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기사에 등장하는 <strong>기관명이나 기술, 법안</strong>을 포털 사이트에서 직접 검색해 보았습니다.</span>
-                                </label>
-                                <label class="flex items-start gap-4 cursor-pointer group">
-                                    <input type="checkbox" class="fact-checkbox mt-0.5">
-                                    <span class="text-slate-700 text-[16px] font-medium group-hover:text-rose-700 transition leading-snug">기사에 제시된 사진, 수치, 인용구가 <strong>상식적으로 타당한지</strong> 비판적으로 고민했습니다.</span>
-                                </label>
-                            </div>
-
-                            <div id="vote-area" class="opacity-40 grayscale pointer-events-none transition-all duration-700 relative z-10">
-                                <div class="mb-8 bg-rose-50/50 p-6 rounded-2xl border border-rose-100">
-                                    <label class="block text-[15px] font-bold text-slate-800 mb-3">당신이 가짜/진짜로 판별한 <span class="text-rose-600">가장 결정적인 단서</span>는 무엇인가요? <span class="text-red-500">*</span></label>
-                                    <input type="text" id="reason-input" class="w-full bg-white border-2 border-slate-200 rounded-xl p-4 text-[16px] focus:outline-none focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 transition shadow-sm" placeholder="예: KVIST라는 연구소를 검색해보니 존재하지 않았습니다.">
-                                </div>
-                                
-                                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                    <button onclick="submitFactCheck(true, '${factCheckPayload}')" class="w-full sm:w-56 py-4.5 bg-slate-900 text-white font-black text-lg rounded-xl shadow-lg hover:bg-slate-800 hover:-translate-y-1 transition transform">진짜 뉴스 (FACT)</button>
-                                    <button onclick="submitFactCheck(false, '${factCheckPayload}')" class="w-full sm:w-56 py-4.5 bg-red-600 text-white font-black text-lg rounded-xl shadow-lg hover:bg-red-700 hover:-translate-y-1 transition transform">가짜 뉴스 (FAKE)</button>
-                                </div>
-                            </div>
-                            
-                            <div id="quiz-result" class="mt-10 hidden text-left transition-all duration-500 relative z-10"></div>
-                        </div>
+                        ${factCheckQuizHTML}
 
                         <!-- Simulated Reader Reactions Section -->
                         <div class="mt-16 pt-10 border-t-[3px] border-slate-900">
