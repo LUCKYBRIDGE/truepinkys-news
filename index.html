@@ -369,6 +369,22 @@
             return isReporterAuthor(author) ? '기자구독' : '원문출처';
         }
 
+        function renderOriginalSourceLink(news, variant = 'compact') {
+            if (!news?.sourceUrl) return '';
+
+            const isLarge = variant === 'large';
+            const classes = isLarge
+                ? 'inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-black text-[15px] hover:bg-slate-800 transition shadow-md'
+                : 'inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full text-[13px] font-black text-slate-700 hover:border-rose-400 hover:text-rose-700 transition';
+
+            return `
+                <a href="${escapeHtml(news.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="${classes}">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    원문 게시글 보기
+                </a>
+            `;
+        }
+
         function updatePageModeChrome() {
             document.body.classList.toggle('fake-check-mode', activeNewsMode === 'mission');
         }
@@ -702,6 +718,7 @@
         // ==========================================
         function renderArticleView(news) {
             const mainContainer = document.getElementById('app-main');
+            const isExternalOnly = Boolean(news.externalOnly);
             const factCheckPayload = encodeURIComponent(JSON.stringify({
                 actualType: news.type,
                 sourceNote: news.sourceNote
@@ -740,7 +757,7 @@
                 </div>
             `).join('');
 
-            const factCheckQuizHTML = activeNewsMode === 'mission' ? `
+            const factCheckQuizHTML = activeNewsMode === 'mission' && !isExternalOnly ? `
                         <!-- Fake news detection mode quiz -->
                         <div class="mt-16 bg-gradient-to-b from-slate-50 to-white border-2 border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm relative overflow-hidden" id="quiz-section">
                             <div class="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-full blur-3xl -mr-10 -mt-10"></div>
@@ -778,6 +795,53 @@
                             <div id="quiz-result" class="mt-10 hidden text-left transition-all duration-500 relative z-10"></div>
                         </div>
             ` : '';
+            const articleBodyHTML = isExternalOnly ? `
+                        <div id="news-body-content" class="article-body">
+                            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-7 sm:p-8">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 flex-shrink-0">
+                                        <i class="fa-solid fa-link"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-[22px] font-black text-slate-900 mb-3 tracking-tight">원문 사이트에서 전문을 확인하세요</h3>
+                                        <p class="text-[16px] text-slate-600 leading-relaxed mb-5">
+                                            이 글은 공공누리 제1유형이 아닌 원문 자료입니다. 트루핑키스 뉴스에서는 저작권 보호를 위해 제목, 출처, 최소 정보만 안내하고 본문 각색문은 제공하지 않습니다.
+                                        </p>
+                                        ${renderOriginalSourceLink(news, 'large')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            ` : `
+                        <div id="news-body-content" class="article-body">
+                            <figure class="mb-12">
+                                <img src="${news.image.url}" class="w-full h-auto rounded-xl shadow-sm" alt="기사 대표 이미지">
+                                <figcaption class="text-[14px] text-slate-500 mt-3 tracking-tight font-medium text-center">▲ ${renderMediaCaption(news.image.caption)}</figcaption>
+                            </figure>
+
+                            <div class="space-y-2">
+                                ${contentHTML}
+
+                                <div class="my-14 pl-8 border-l-[6px] border-slate-800 bg-slate-50 p-8 rounded-r-2xl">
+                                    <p class="text-[22px] font-bold text-slate-800 leading-relaxed tracking-tight" style="word-break: keep-all;">"${news.quote}"</p>
+                                </div>
+                            </div>
+                            <div class="mt-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-slate-100 pt-6">
+                                <p class="text-[15px] text-slate-500 font-sans font-medium">${renderAuthorCredit(news.author)}${news.author.email ? ` (${news.author.email})` : ''}</p>
+                                ${renderOriginalSourceLink(news)}
+                            </div>
+                        </div>
+            `;
+            const reactionsHTML = isExternalOnly ? '' : `
+                        <!-- Simulated Reader Reactions Section -->
+                        <div class="mt-16 pt-10 border-t-[3px] border-slate-900">
+                            <h3 class="text-xl font-black text-slate-900 mb-3 tracking-tight">가상 독자 반응 <span class="text-rose-600">${news.comments.length}</span></h3>
+                            <p class="text-[14px] text-slate-500 leading-relaxed mb-6 bg-slate-50 border border-slate-200 rounded-xl p-4 font-medium">
+                                진짜뉴스, 가짜뉴스 여부와 별개로 아래 댓글과 반응 수는 모두 미디어 리터러시 수업을 위해 만든 <strong class="text-slate-800">가상 예시</strong>입니다. 실제 이용자 의견이나 실제 집계 수치가 아닙니다.
+                            </p>
+                            <div class="space-y-2">${commentsHTML}</div>
+                        </div>
+            `;
 
             mainContainer.innerHTML = `
                 ${renderEducationalNotice()}
@@ -812,35 +876,15 @@
                                     <span class="w-px h-4 bg-slate-200 mx-1"></span>
                                     <button class="hover:text-slate-900 transition flex items-center gap-2 text-sm font-bold ml-1" onclick="returnToCornerList()"><i class="fa-solid fa-list"></i> 목록</button>
                                 </div>
+                                ${renderOriginalSourceLink(news)}
                             </div>
                         </div>
 
-                        <div id="news-body-content" class="article-body">
-                            <figure class="mb-12">
-                                <img src="${news.image.url}" class="w-full h-auto rounded-xl shadow-sm" alt="기사 대표 이미지">
-                                <figcaption class="text-[14px] text-slate-500 mt-3 tracking-tight font-medium text-center">▲ ${renderMediaCaption(news.image.caption)}</figcaption>
-                            </figure>
-
-                            <div class="space-y-2">
-                                ${contentHTML}
-                                
-                                <div class="my-14 pl-8 border-l-[6px] border-slate-800 bg-slate-50 p-8 rounded-r-2xl">
-                                    <p class="text-[22px] font-bold text-slate-800 leading-relaxed tracking-tight" style="word-break: keep-all;">"${news.quote}"</p>
-                                </div>
-                            </div>
-                            <p class="mt-12 text-[15px] text-slate-500 font-sans font-medium text-right border-t border-slate-100 pt-6">${renderAuthorCredit(news.author)}${news.author.email ? ` (${news.author.email})` : ''}</p>
-                        </div>
+                        ${articleBodyHTML}
 
                         ${factCheckQuizHTML}
 
-                        <!-- Simulated Reader Reactions Section -->
-                        <div class="mt-16 pt-10 border-t-[3px] border-slate-900">
-                            <h3 class="text-xl font-black text-slate-900 mb-3 tracking-tight">가상 독자 반응 <span class="text-rose-600">${news.comments.length}</span></h3>
-                            <p class="text-[14px] text-slate-500 leading-relaxed mb-6 bg-slate-50 border border-slate-200 rounded-xl p-4 font-medium">
-                                진짜뉴스, 가짜뉴스 여부와 별개로 아래 댓글과 반응 수는 모두 미디어 리터러시 수업을 위해 만든 <strong class="text-slate-800">가상 예시</strong>입니다. 실제 이용자 의견이나 실제 집계 수치가 아닙니다.
-                            </p>
-                            <div class="space-y-2">${commentsHTML}</div>
-                        </div>
+                        ${reactionsHTML}
                     </article>
 
                     <!-- Right: Sidebar (4 cols) -->
