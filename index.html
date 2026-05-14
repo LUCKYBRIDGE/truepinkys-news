@@ -338,6 +338,14 @@
             return newsData.filter(article => article.type === 'real');
         }
 
+        function renderMediaCaption(caption, fallbackCaption = '기사 이해를 돕는 참고 이미지입니다.') {
+            const normalizedCaption = caption || fallbackCaption;
+            if (activeNewsMode !== 'mission') return normalizedCaption;
+
+            const revealsAssetStatus = /AI|가상|진위 판단|원문 자료|생성한/.test(normalizedCaption);
+            return revealsAssetStatus ? fallbackCaption : normalizedCaption;
+        }
+
         function updatePageModeChrome() {
             document.body.classList.toggle('fake-check-mode', activeNewsMode === 'mission');
         }
@@ -672,7 +680,7 @@
                             <figure class="my-12 p-1 bg-white border border-slate-200 shadow-md rounded-xl mx-auto max-w-[95%]">
                                 <img src="${asset.url}" class="w-full h-auto rounded-lg" alt="본문 삽입 이미지">
                                 <figcaption class="text-[14px] text-slate-500 font-sans mt-3 mb-2 text-center tracking-tight font-medium">
-                                    ▲ ${asset.caption}
+                                    ▲ ${renderMediaCaption(asset.caption, '기사 내용을 설명하는 참고 자료입니다.')}
                                 </figcaption>
                             </figure>
                         `;
@@ -771,7 +779,7 @@
                         <div id="news-body-content" class="article-body">
                             <figure class="mb-12">
                                 <img src="${news.image.url}" class="w-full h-auto rounded-xl shadow-sm" alt="기사 대표 이미지">
-                                <figcaption class="text-[14px] text-slate-500 mt-3 tracking-tight font-medium text-center">▲ ${news.image.caption}</figcaption>
+                                <figcaption class="text-[14px] text-slate-500 mt-3 tracking-tight font-medium text-center">▲ ${renderMediaCaption(news.image.caption)}</figcaption>
                             </figure>
 
                             <div class="space-y-2">
