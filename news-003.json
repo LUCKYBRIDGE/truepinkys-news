@@ -19,13 +19,13 @@
   },
   "image": {
     "url": "./assets/generated/news-003.jpg",
-    "caption": "트루핑키스 뉴스가 기사 이해를 돕기 위해 AI로 생성한 가상 이미지입니다. 기사 진위 판단의 근거가 아닙니다."
+    "caption": "밤에 조명이 켜진 궁궐을 관람하는 모습을 보여주는 참고 이미지입니다."
   },
   "bodyAssets": [
     {
       "type": "image",
       "url": "./assets/generated/news-003-body.png",
-      "caption": "트루핑키스 뉴스가 기사 이해를 돕기 위해 AI로 생성한 가상 자료입니다. 기사 진위 판단의 근거가 아닙니다.",
+      "caption": "야간 관람에서 예매, 입장 시간, 관람 예절이 함께 필요하다는 점을 정리한 참고 자료입니다.",
       "insertAfterIndex": 1
     }
   ],

@@ -20,13 +20,13 @@
   },
   "image": {
     "url": "./assets/generated/news-004.jpg",
-    "caption": "트루핑키스 뉴스가 기사 이해를 돕기 위해 AI로 생성한 가상 이미지입니다. 기사 진위 판단의 근거가 아닙니다."
+    "caption": "학교 급식실에 디저트 분수가 설치된 상황을 상상해 보여주는 참고 이미지입니다."
   },
   "bodyAssets": [
     {
       "type": "image",
       "url": "./assets/generated/news-004-body.png",
-      "caption": "트루핑키스 뉴스가 기사 이해를 돕기 위해 AI로 생성한 가상 자료입니다. 기사 진위 판단의 근거가 아닙니다.",
+      "caption": "급식 제도 변화에는 영양, 예산, 위생 기준이 함께 살펴져야 한다는 점을 정리한 참고 자료입니다.",
       "insertAfterIndex": 2
     }
   ],
