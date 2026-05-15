@@ -9,10 +9,11 @@
   "title": "비 오는 날 노란 우산 쓰면 자동차가 자동 정지한다?",
   "subtitle": "노란 우산만으로 자동차가 멈춘다는 교통안전 글, 공식 기관 발표 확인 필요",
   "author": {
-    "name": "안전확인",
-    "email": "safecheck@dailytruth.co.kr",
+    "name": "도하람",
+    "email": "",
     "profile": "./assets/generated/avatar-fake.png",
-    "department": "교통안전팀"
+    "department": "교통사회팀",
+    "role": "reporter"
   },
   "date": {
     "published": "2026.05.12. 오후 02:00",

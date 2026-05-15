@@ -353,7 +353,7 @@
         }
 
         function isReporterAuthor(author) {
-            return Boolean(author?.email) || /기자단/.test(author?.department || '');
+            return author?.role === 'reporter' || Boolean(author?.email) || /기자단/.test(author?.department || '');
         }
 
         function renderAuthorCredit(author) {

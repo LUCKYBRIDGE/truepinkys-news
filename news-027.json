@@ -8,10 +8,11 @@
   "title": "달빛으로 충전되는 운동화 개발... 밤에 걸으면 휴대전화 충전 가능",
   "subtitle": "달빛 에너지 운동화 제품 소식, 작동 원리와 안전 시험 자료 확인 필요",
   "author": {
-    "name": "과학확인",
-    "email": "sciencecheck@dailytruth.co.kr",
+    "name": "유이든",
+    "email": "",
     "profile": "./assets/generated/avatar-fake.png",
-    "department": "미래과학팀"
+    "department": "과학산업팀",
+    "role": "reporter"
   },
   "date": {
     "published": "2026.05.12. 오후 02:00",
