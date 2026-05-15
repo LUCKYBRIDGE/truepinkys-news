@@ -317,7 +317,7 @@
                     term: entry.term,
                     definition: entry.definition
                 }));
-                rendered = rendered.replaceAll(`@@GLOSSARY_TERM_${index}@@`, `<button type="button" class="glossary-term" onclick="showGlossaryTerm('${payload}')">${safeTerm}</button>`);
+                rendered = rendered.replaceAll(`@@GLOSSARY_TERM_${index}@@`, `<button type="button" class="glossary-term" onclick="showGlossaryTerm(event, '${payload}')">${safeTerm}</button>`);
             });
 
             return rendered;
@@ -1044,7 +1044,9 @@
             }
         }
 
-        function showGlossaryTerm(payloadValue) {
+        function showGlossaryTerm(event, payloadValue) {
+            if (event) event.stopPropagation();
+
             let payload;
             try {
                 payload = JSON.parse(decodeURIComponent(payloadValue));
@@ -1058,7 +1060,7 @@
 
             const popover = document.createElement('div');
             popover.id = 'glossary-popover';
-            popover.className = 'fixed left-4 right-4 bottom-4 sm:left-auto sm:right-6 sm:bottom-6 sm:w-96 z-[998] bg-white border-2 border-rose-200 rounded-2xl shadow-2xl p-5';
+            popover.className = 'fixed z-[998] w-[calc(100vw-2rem)] sm:w-96 bg-white border-2 border-rose-200 rounded-2xl shadow-2xl p-5';
             popover.innerHTML = `
                 <div class="flex items-start justify-between gap-4 mb-2">
                     <strong class="text-[18px] text-slate-900">${escapeHtml(payload.term)}</strong>
@@ -1067,6 +1069,26 @@
                 <p class="text-[15px] text-slate-600 leading-relaxed font-medium">${escapeHtml(payload.definition)}</p>
             `;
             document.body.appendChild(popover);
+
+            const trigger = event?.currentTarget;
+            const triggerRect = trigger?.getBoundingClientRect();
+            const popoverRect = popover.getBoundingClientRect();
+            const margin = 16;
+            const gap = 10;
+            let left = triggerRect ? triggerRect.left : margin;
+            let top = triggerRect ? triggerRect.bottom + gap : window.innerHeight - popoverRect.height - margin;
+
+            if (left + popoverRect.width > window.innerWidth - margin) {
+                left = window.innerWidth - popoverRect.width - margin;
+            }
+            if (top + popoverRect.height > window.innerHeight - margin && triggerRect) {
+                top = triggerRect.top - popoverRect.height - gap;
+            }
+            if (top < margin) top = margin;
+            if (left < margin) left = margin;
+
+            popover.style.left = `${left}px`;
+            popover.style.top = `${top}px`;
         }
 
         function submitFactCheck(userThinksItsReal, payloadValue, fallbackSourceNote) {
